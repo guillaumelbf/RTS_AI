@@ -580,10 +580,30 @@ public sealed class PlayerController : UnitController
 
             Vector3 newPos = raycastInfo.point;
             SetTargetCursorPosition(newPos);
+            
+            //TODO: Unit Formation
+            Debug.Log(SelectedUnitList.Count);
+            //Formations
+            int unitPerLine = (SelectedUnitList.Count + SelectedUnitList.Count % 2) / 2;
+            float unitOffset = 5;
+            Vector3 currentPos = new Vector3(newPos.x - unitOffset * (unitPerLine / 2), newPos.y, newPos.z + (unitOffset/2));
 
+            int unitNum = 0;
             // Direct call to moving task $$$ to be improved by AI behaviour
             foreach (Unit unit in SelectedUnitList)
-                unit.SetTargetPos(newPos);
+            {
+                unit.SetTargetPos(currentPos);
+                
+                unitNum++;
+
+                if (unitNum % unitPerLine == 0)
+                {
+                    currentPos.x = newPos.x - unitOffset * (unitPerLine / 2);
+                    currentPos.z = newPos.z - (unitOffset/2);
+                }
+                else
+                    currentPos.x += unitOffset;
+            }
         }
     }
     #endregion
