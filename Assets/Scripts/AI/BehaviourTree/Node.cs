@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.AssetImporters;
 using UnityEngine;
 
 namespace BehaviourTree
@@ -31,10 +34,11 @@ namespace BehaviourTree
         }
     
         // Attach Node to another Node
-        public void Attach(Node _node)
+        public Node Attach(Node _node)
         {
             _node.parent = this;
             childNodes.Add(_node);
+            return _node;
         }
         
         // Default evaluation is FAILED

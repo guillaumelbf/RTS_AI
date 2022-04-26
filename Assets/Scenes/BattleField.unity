@@ -960,6 +960,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: AIController
       objectReference: {fileID: 0}
+    - target: {fileID: 7859672622032877473, guid: fee74b0095774cf4f9701d9fab58813d,
+        type: 3}
+      propertyPath: btGraph
+      value: 
+      objectReference: {fileID: 11400000, guid: 594acc6961c0a884a929449cc0c79b09,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fee74b0095774cf4f9701d9fab58813d, type: 3}
 --- !u!114 &1256912380 stripped
