@@ -46,7 +46,9 @@ MonoBehaviour:
       _dynamic: 0
   prevNode: {fileID: 0}
   nextNode: {fileID: 0}
-  selector: {fileID: 0}
+  index: 1
+  myContainer: {fileID: 7522196548339026585, guid: a064b909cad751a489d0b9a65d531482,
+    type: 3}
 --- !u!114 &-4325588057283192402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +122,6 @@ MonoBehaviour:
       _dynamic: 0
   prevNode: {fileID: 0}
   nextNode: {fileID: 0}
-  taskNode: {fileID: 0}
 --- !u!114 &-2344144833613683528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +162,6 @@ MonoBehaviour:
       _dynamic: 0
   prevNode: {fileID: 0}
   nextNode: {fileID: 0}
-  taskNode: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +222,6 @@ MonoBehaviour:
       _dynamic: 0
   prevNode: {fileID: 0}
   nextNode: {fileID: 0}
-  taskNode: {fileID: 0}
 --- !u!114 &3914378350702751912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +262,6 @@ MonoBehaviour:
       _dynamic: 0
   prevNode: {fileID: 0}
   nextNode: {fileID: 0}
-  taskNode: {fileID: 0}
 --- !u!114 &6748198036104291661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,7 +275,7 @@ MonoBehaviour:
   m_Name: Selector
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -120, y: -136}
+  position: {x: -104, y: -168}
   ports:
     keys:
     - prevNode
@@ -310,4 +308,6 @@ MonoBehaviour:
       _dynamic: 0
   prevNode: {fileID: 0}
   nextNode: {fileID: 0}
-  selector: {fileID: 0}
+  index: 0
+  myContainer: {fileID: 7522196548339026585, guid: a064b909cad751a489d0b9a65d531482,
+    type: 3}

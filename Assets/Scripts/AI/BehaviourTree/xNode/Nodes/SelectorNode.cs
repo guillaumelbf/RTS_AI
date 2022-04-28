@@ -11,9 +11,13 @@ public class SelectorNode : Node
 
 	public BehaviourTree.Selector selector;
 
+	public int index = 0;
+	public ContainerSelector myContainer;
+
 	// Use this for initialization
 	protected override void Init() {
 		base.Init();
+		selector = myContainer.GetSelectorByIndex(index);
 	}
 
 	// Return the correct value of an output port when requested
