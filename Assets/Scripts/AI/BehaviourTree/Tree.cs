@@ -8,11 +8,13 @@ namespace BehaviourTree
     public class Tree : MonoBehaviour
     {
         public Node root = null;
+        protected ContainerTask containerTask;
         
         // Start is called before the first frame update
         public void Start()
         {
-            root = new Node();
+            root = new Selector();
+            containerTask = gameObject.AddComponent<ContainerTask>();
         }
 
         // Update is called once per frame
@@ -25,9 +27,6 @@ namespace BehaviourTree
         public void Generate(BehaviourTreeGraph _btGraph)
         {
             XNode.Node xRoot = _btGraph.GetRootNode();
-            
-            if(xRoot == null)
-                return;
 
             GenerateChild(xRoot, root);
         }
@@ -41,7 +40,7 @@ namespace BehaviourTree
             foreach (var node in _parentXNode.Outputs.First().GetConnections())
             {
                 Node currNode = null;
-                switch (node.GetType().Name)
+                switch (node.node.GetType().Name)
                 {
                     case nameof(SelectorNode):
                         currNode = _parentNode.Attach(new Selector());
@@ -50,7 +49,7 @@ namespace BehaviourTree
                         currNode = _parentNode.Attach(new Sequence());
                         break;
                     case nameof(TaskNode):
-                        //currNode = _parentNode.Attach(new Selector());
+                        currNode = _parentNode.Attach(containerTask.GetTask(((TaskNode)node.node).taskName));
                         break;
                 }
                 

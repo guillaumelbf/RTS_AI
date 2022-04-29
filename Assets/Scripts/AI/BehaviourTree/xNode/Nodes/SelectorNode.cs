@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using BehaviourTree;
 using UnityEngine;
 using XNode;
+using Node = XNode.Node;
 
 public class SelectorNode : Node 
 {
@@ -9,15 +11,9 @@ public class SelectorNode : Node
 	[Input] public Node prevNode;
 	[Output] public Node nextNode;
 
-	public BehaviourTree.Selector selector;
-
-	public int index = 0;
-	public ContainerSelector myContainer;
-
 	// Use this for initialization
 	protected override void Init() {
 		base.Init();
-		selector = myContainer.GetSelectorByIndex(index);
 	}
 
 	// Return the correct value of an output port when requested

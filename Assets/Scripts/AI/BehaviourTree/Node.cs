@@ -22,6 +22,11 @@ namespace BehaviourTree
         public Node parent;
 
         private Dictionary<string, object> data = new Dictionary<string, object>();
+        
+        public List<Node> ChildNodes
+        {
+            get => childNodes;
+        }
 
         public Node()
         {

@@ -9,7 +9,7 @@ public class TaskNode : Node
 	[Input] public Node prevNode;
 	[Output] public Node nextNode;
 
-	public BehaviourTree.Node taskNode;
+	public string taskName;
 
 	// Use this for initialization
 	protected override void Init() {
