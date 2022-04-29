@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 580627816653263432}
   - component: {fileID: 7859672622032877473}
+  - component: {fileID: 1835889142211122317}
   m_Layer: 0
   m_Name: AIController
   m_TagString: Untagged
@@ -45,3 +46,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Team: 1
   StartingBuildPoints: 15
+--- !u!114 &1835889142211122317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6399179960504004712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd642d0c3ac6ca847a2387d0a1ec000d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btGraph: {fileID: 11400000, guid: f1f4a2e1609ac2844a4208e7b4074375, type: 2}

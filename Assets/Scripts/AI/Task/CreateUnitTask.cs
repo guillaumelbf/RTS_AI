@@ -14,7 +14,7 @@ public class CreateUnitTask : BT.Node
     
     public override BT.NodeState Evaluate()
     {
-        //TODO: Create unit task
+        
         
         return BT.NodeState.SUCCESS;
     }
