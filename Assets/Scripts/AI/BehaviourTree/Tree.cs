@@ -11,14 +11,14 @@ namespace BehaviourTree
         protected ContainerTask containerTask;
         
         // Start is called before the first frame update
-        public void Start()
+        public virtual void Start()
         {
             root = new Selector();
             containerTask = gameObject.AddComponent<ContainerTask>();
         }
 
         // Update is called once per frame
-        public void Update()
+        public virtual void Update()
         {
             if (root != null)
                 root.Evaluate();
