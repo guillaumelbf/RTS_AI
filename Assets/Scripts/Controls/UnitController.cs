@@ -49,6 +49,17 @@ public class UnitController : MonoBehaviour
     protected Action OnCaptureTarget;
 
     #region Unit methods
+
+    public List<Unit> GetAllUnits()
+    {
+        return UnitList;
+    }
+
+    public List<Factory> GetAllFactorys()
+    {
+        return FactoryList;
+    }
+
     protected void UnselectAllUnits()
     {
         foreach (Unit unit in SelectedUnitList)
