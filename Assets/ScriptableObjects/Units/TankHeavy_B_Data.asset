@@ -29,6 +29,7 @@ MonoBehaviour:
   AngularSpeed: 100
   Acceleration: 8
   IsFlying: 0
+  Size: 4
   BulletPrefab: {fileID: 6953520636668906323, guid: 1061d596cce45944a8ae97b48af1ac15,
     type: 3}
   DeathFXPrefab: {fileID: 1685874166552172, guid: 2dc5347a44240ea4597cafb2d1d7c160,

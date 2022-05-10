@@ -47,6 +47,10 @@ public class UnitController : MonoBehaviour
     // events
     protected Action OnBuildPointsUpdated;
     protected Action OnCaptureTarget;
+    
+    
+    // formations
+    protected UnitSquad unitSquad;
 
     #region Unit methods
     protected void UnselectAllUnits()
@@ -54,6 +58,7 @@ public class UnitController : MonoBehaviour
         foreach (Unit unit in SelectedUnitList)
             unit.SetSelected(false);
         SelectedUnitList.Clear();
+        unitSquad.ClearUnit();
     }
     protected void SelectAllUnits()
     {
@@ -93,6 +98,8 @@ public class UnitController : MonoBehaviour
     {
         unit.SetSelected(true);
         SelectedUnitList.Add(unit);
+        unitSquad.AddUnit(unit);
+        
     }
     protected void UnselectUnit(Unit unit)
     {
