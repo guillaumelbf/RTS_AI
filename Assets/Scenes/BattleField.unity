@@ -627,13 +627,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   influenceTex: {fileID: 0}
-  sizeFinalTex: 128
+  sizeFinalTex: 256
   limitMap: {fileID: -5985772295880352104, guid: debf3d49bb2656746b4d7003d5f846c3,
     type: 2}
   mat: {fileID: 2100000, guid: e9927f5f9a81d034283b6f37a2133011, type: 2}
-  timerUpdate: 1
-  isDebug: 0
-  divTerrain: 30
+  timerUpdate: 0.1
 --- !u!20 &817550761 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 3124353299293301188, guid: 32676265f95fdeb40833df7b0b170998,
