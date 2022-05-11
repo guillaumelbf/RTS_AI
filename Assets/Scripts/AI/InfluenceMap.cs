@@ -7,7 +7,7 @@ public class InfluenceMap : MonoBehaviour
 
     [Header("Final Texture")]
     [SerializeField]
-    public Texture2D influenceTex;
+    private Texture2D influenceTex;
     [SerializeField]
     private int sizeFinalTex = 64;
 
@@ -31,6 +31,10 @@ public class InfluenceMap : MonoBehaviour
     private float timerUpdate = 1.0f;
     private float timerSave = 0.0f;
 
+    public Texture2D GetInfluenceMap()
+    {
+        return influenceTex;
+    }
 
     // Start is called before the first frame update
     void Start()
