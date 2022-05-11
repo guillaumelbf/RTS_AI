@@ -7,7 +7,7 @@ public class InfluenceMap : MonoBehaviour
 
     [Header("Final Texture")]
     [SerializeField]
-    private Texture2D influenceTex;
+    public Texture2D influenceTex;
     [SerializeField]
     private int sizeFinalTex = 64;
 
@@ -162,12 +162,12 @@ public class InfluenceMap : MonoBehaviour
                 Vector2Int currentPixel = new Vector2Int(i, j);
                 float magnitudePixel = (currentPixel - centerPixel).magnitude;
 
-                if (magnitudePixel < radius)
+                if (magnitudePixel <= radius)
                 {
                     float multiColor = -(magnitudePixel /radius) + 1.0f;
                     Color newColor = color * (multiColor * powerInfluence);
 
-                    Color finalColor = (newColor + currentColorPixel) / 2.0f;
+                    Color finalColor = newColor + currentColorPixel;
                     finalColor.a = 1.0f;
 
                     influenceTex.SetPixel(i, j, finalColor);
