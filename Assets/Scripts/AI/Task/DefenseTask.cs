@@ -4,21 +4,21 @@ using UnityEngine;
 
 using BT = BehaviourTree;
 
-public class CreateUnitTask : BT.Node
+public class DefenseTask : BT.Node
 {
     private AIController aiController;
-    public CreateUnitTask(AIController _aiController)
+    public DefenseTask(AIController _aiController)
     {
         aiController = _aiController;
     }
-    
+
     public override BT.NodeState Evaluate()
     {
+        ETeam playerTeam = aiController.GetTeam() == ETeam.Blue ? ETeam.Red : ETeam.Blue;
 
-        List<Factory> factorys =  aiController.GetAllFactorys();
-
-        factorys[0].RequestUnitBuild(0);
+        InfluenceMap.GetInfluenceMap();
 
         return BT.NodeState.SUCCESS;
     }
 }
+
