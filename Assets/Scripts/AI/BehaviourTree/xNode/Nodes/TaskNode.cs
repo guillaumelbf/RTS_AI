@@ -5,10 +5,9 @@ using XNode;
 
 public class TaskNode : Node 
 {
-	
 	[Input] public Node prevNode;
-	[Output] public Node nextNode;
 
+	public int order = 0;
 	public string taskName;
 
 	// Use this for initialization

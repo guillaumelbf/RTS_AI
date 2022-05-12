@@ -9,7 +9,7 @@ public class SequenceNode : Node
 	[Input] public Node prevNode;
 	[Output] public Node nextNode;
 	
-	public BehaviourTree.Sequence selector;
+	public int order = 0;
 	
 	// Use this for initialization
 	protected override void Init() {

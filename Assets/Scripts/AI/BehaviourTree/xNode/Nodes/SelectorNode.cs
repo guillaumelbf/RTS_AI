@@ -10,6 +10,8 @@ public class SelectorNode : Node
 	
 	[Input] public Node prevNode;
 	[Output] public Node nextNode;
+	
+	public int order = 0;
 
 	// Use this for initialization
 	protected override void Init() {
