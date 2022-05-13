@@ -4,17 +4,16 @@ using UnityEngine;
 
 using BT = BehaviourTree;
 
-public class CreateUnitTask : BT.Node
+public class MoveUnitTask : BT.Node
 {
-    private AIController aiController;
-    public CreateUnitTask(AIController _aiController)
+
+    public MoveUnitTask()
     {
-        aiController = _aiController;
     }
     
     public override BT.NodeState Evaluate()
     {
-        Debug.Log("CreateUnit");
+        Debug.Log("MoveUnit");
         
         return BT.NodeState.RUNNING;
     }

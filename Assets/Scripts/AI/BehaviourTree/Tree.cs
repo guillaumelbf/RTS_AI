@@ -34,22 +34,25 @@ namespace BehaviourTree
         //Recursively attach each node together 
         private void GenerateChild(XNode.Node _parentXNode, Node _parentNode)
         {
-            if(_parentXNode == null || _parentNode == null)
+            if(_parentXNode == null || _parentNode == null || !_parentXNode.Outputs.Any())
                 return;
-            
+
             foreach (var node in _parentXNode.Outputs.First().GetConnections())
             {
                 Node currNode = null;
                 switch (node.node.GetType().Name)
                 {
                     case nameof(SelectorNode):
-                        currNode = _parentNode.Attach(new Selector());
+                        SelectorNode selectorNode = (SelectorNode)node.node;
+                        currNode = _parentNode.Attach(selectorNode.order,new Selector());
                         break;
                     case nameof(SequenceNode):
-                        currNode = _parentNode.Attach(new Sequence());
+                        SequenceNode sequenceNode = (SequenceNode)node.node;
+                        currNode = _parentNode.Attach(sequenceNode.order,new Sequence());
                         break;
                     case nameof(TaskNode):
-                        currNode = _parentNode.Attach(containerTask.GetTask(((TaskNode)node.node).taskName));
+                        TaskNode taskNode = (TaskNode)node.node;
+                        currNode = _parentNode.Attach(taskNode.order,containerTask.GetTask(((TaskNode)node.node).taskName));
                         break;
                 }
                 

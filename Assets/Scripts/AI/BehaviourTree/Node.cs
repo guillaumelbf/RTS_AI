@@ -17,13 +17,13 @@ namespace BehaviourTree
     public class Node
     {
         protected NodeState nodeState;
-        protected List<Node> childNodes = new List<Node>();
+        protected SortedDictionary<int,Node> childNodes = new SortedDictionary<int,Node>();
 
         public Node parent;
 
         private Dictionary<string, object> data = new Dictionary<string, object>();
         
-        public List<Node> ChildNodes
+        public SortedDictionary<int,Node> ChildNodes
         {
             get => childNodes;
         }
@@ -35,14 +35,14 @@ namespace BehaviourTree
 
         public Node(Node _node)
         {
-            Attach(_node);
+            Attach(0,_node);
         }
-    
-        // Attach Node to another Node
-        public Node Attach(Node _node)
+        
+        // Attach Node to another Node at index
+        public Node Attach(int _index,Node _node)
         {
             _node.parent = this;
-            childNodes.Add(_node);
+            childNodes.Add(_index,_node);
             return _node;
         }
         
