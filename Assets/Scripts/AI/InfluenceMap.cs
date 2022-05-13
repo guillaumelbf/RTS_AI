@@ -7,7 +7,7 @@ public class InfluenceMap : MonoBehaviour
 
     [Header("Final Texture")]
     [SerializeField]
-    private Texture2D influenceTex;
+    static private Texture2D influenceTex;
     [SerializeField]
     private int sizeFinalTex = 64;
 
@@ -31,7 +31,7 @@ public class InfluenceMap : MonoBehaviour
     private float timerUpdate = 1.0f;
     private float timerSave = 0.0f;
 
-    public Texture2D GetInfluenceMap()
+    static public Texture2D GetInfluenceMap()
     {
         return influenceTex;
     }
@@ -178,6 +178,32 @@ public class InfluenceMap : MonoBehaviour
                 }
             }
         }
+    }
+
+    public float AmountScoreArroundPos(Vector3 pos, float radius, ETeam enemyTeam)
+    {
+        float ratio = influenceTex.width / sizeField.x;
+        float finalScore = 0;
+
+        Vector2 center = new Vector2(pos.x * ratio, pos.z * ratio);
+
+        for (int i = (int)center.x - (int)radius; i < center.x + (int)radius; i++)
+        {
+            for (int j = (int)center.y - (int)radius; j < center.y + (int)radius; j++)
+            {
+                Color currentColorPixel = influenceTex.GetPixel(i, j);
+
+                if (currentColorPixel == Color.white)
+                    continue;
+
+                if (enemyTeam == ETeam.Red)
+                    finalScore += currentColorPixel.r;
+                if (enemyTeam == ETeam.Blue)
+                    finalScore += currentColorPixel.b;
+            }
+        }
+
+        return finalScore;
     }
 }
 
