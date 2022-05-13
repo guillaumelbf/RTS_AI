@@ -179,5 +179,31 @@ public class InfluenceMap : MonoBehaviour
             }
         }
     }
+
+    public float AmountScoreArroundPos(Vector3 pos, float radius, ETeam enemyTeam)
+    {
+        float ratio = influenceTex.width / sizeField.x;
+        float finalScore = 0;
+
+        Vector2 center = new Vector2(pos.x * ratio, pos.z * ratio);
+
+        for (int i = (int)center.x - (int)radius; i < center.x + (int)radius; i++)
+        {
+            for (int j = (int)center.y - (int)radius; j < center.y + (int)radius; j++)
+            {
+                Color currentColorPixel = influenceTex.GetPixel(i, j);
+
+                if (currentColorPixel == Color.white)
+                    continue;
+
+                if (enemyTeam == ETeam.Red)
+                    finalScore += currentColorPixel.r;
+                if (enemyTeam == ETeam.Blue)
+                    finalScore += currentColorPixel.b;
+            }
+        }
+
+        return finalScore;
+    }
 }
 

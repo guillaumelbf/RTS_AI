@@ -626,11 +626,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd8b19c31f7db64e9985ba620b4ff83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  influenceTex: {fileID: 0}
-  sizeFinalTex: 256
+  sizeFinalTex: 32
   limitMap: {fileID: -5985772295880352104, guid: debf3d49bb2656746b4d7003d5f846c3,
     type: 2}
   mat: {fileID: 2100000, guid: e9927f5f9a81d034283b6f37a2133011, type: 2}
+  powerInfluence: 0.7
+  radiusInfluence: 5
   timerUpdate: 0.1
 --- !u!20 &817550761 stripped
 Camera:
@@ -1294,13 +1295,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405630215}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 60, y: 60, z: 120}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 60, y: 2.1, z: 60}
   m_LocalScale: {x: 12, y: 1, z: 12}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &1407180933
 PrefabInstance:
   m_ObjectHideFlags: 0
