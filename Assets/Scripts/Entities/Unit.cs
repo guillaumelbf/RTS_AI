@@ -4,6 +4,29 @@ public class Unit : BaseEntity
 {
     [SerializeField]
     UnitDataScriptable UnitData = null;
+    
+    Vector3 gridPosition = Vector3.zero;
+    public Vector3 GridPosition
+    {
+        get { return gridPosition; }
+        set { gridPosition = value; }
+    }
+
+    private float currentMoveSpeed = 1.0f;
+    
+    public float CurrentMoveSpeed 
+    {
+        get { return currentMoveSpeed; }
+        set { currentMoveSpeed = value; }
+    }
+
+    private float unitSize = 1.0f;
+
+    public float UnitSize
+    {
+        get { return unitSize; }
+        set { unitSize = value; }
+    }
 
     Transform BulletSlot;
     float LastActionDate = 0f;
@@ -22,6 +45,7 @@ public class Unit : BaseEntity
 
         HP = UnitData.MaxHP;
         OnDeadEvent += Unit_OnDead;
+        unitSize = UnitData.Size;
     }
     void Unit_OnDead()
     {
