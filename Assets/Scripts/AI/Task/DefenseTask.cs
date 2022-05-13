@@ -24,6 +24,7 @@ public class DefenseTask : BT.Node
     public DefenseTask(AIController _aiController)
     {
         aiController = _aiController;
+        listDefPos = new List<DefensePos>();
     }
 
     public override BT.NodeState Evaluate()
@@ -33,7 +34,7 @@ public class DefenseTask : BT.Node
         InfluenceMap.GetInfluenceMap();
 
         if (aiController.GetAllUnits().Count == 0)
-            return BT.NodeState.FAILED;
+            return BT.NodeState.SUCCESS;
 
         if (isUnderAttack())
         {
@@ -49,8 +50,8 @@ public class DefenseTask : BT.Node
 
     bool isUnderAttack()
     {
-        listDefPos.Clear();
-
+        //if(listDefPos.Count != 0)
+        //    listDefPos.Clear();
 
         foreach (Factory factory in aiController.GetAllFactorys())
         {
