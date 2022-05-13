@@ -7,8 +7,11 @@ namespace BehaviourTree
 {
     public class Tree : MonoBehaviour
     {
-        public Node root = null;
+        private Node root = null;
         protected ContainerTask containerTask;
+
+        public float updateFrequency;
+        private float currentTime = 0;
         
         // Start is called before the first frame update
         public virtual void Start()
@@ -20,6 +23,11 @@ namespace BehaviourTree
         // Update is called once per frame
         public virtual void Update()
         {
+            currentTime += Time.deltaTime;
+            if (currentTime <= updateFrequency)
+                return;
+            currentTime = 0;
+
             if (root != null)
                 root.Evaluate();
         }
