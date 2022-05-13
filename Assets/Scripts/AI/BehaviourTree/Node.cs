@@ -33,11 +33,6 @@ namespace BehaviourTree
             parent = null;
         }
 
-        public Node(Node _node)
-        {
-            Attach(0,_node);
-        }
-        
         // Attach Node to another Node at index
         public Node Attach(int _index,Node _node)
         {

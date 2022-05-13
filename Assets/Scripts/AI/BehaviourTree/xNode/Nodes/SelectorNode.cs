@@ -12,6 +12,8 @@ public class SelectorNode : Node
 	[Output] public Node nextNode;
 	
 	public int order = 0;
+	public bool useDecorator = false;
+	public string decoratorName;
 
 	// Use this for initialization
 	protected override void Init() {

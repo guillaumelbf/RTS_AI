@@ -44,15 +44,21 @@ namespace BehaviourTree
                 {
                     case nameof(SelectorNode):
                         SelectorNode selectorNode = (SelectorNode)node.node;
-                        currNode = _parentNode.Attach(selectorNode.order,new Selector());
+                        Selector selector = new Selector(selectorNode.useDecorator
+                            ? containerTask.GetTask(selectorNode.decoratorName)
+                            : null);
+                        currNode = _parentNode.Attach(selectorNode.order,selector);
                         break;
                     case nameof(SequenceNode):
                         SequenceNode sequenceNode = (SequenceNode)node.node;
-                        currNode = _parentNode.Attach(sequenceNode.order,new Sequence());
+                        Sequence sequence = new Sequence(sequenceNode.useDecorator
+                            ? containerTask.GetTask(sequenceNode.decoratorName)
+                            : null);
+                        currNode = _parentNode.Attach(sequenceNode.order,sequence);
                         break;
                     case nameof(TaskNode):
                         TaskNode taskNode = (TaskNode)node.node;
-                        currNode = _parentNode.Attach(taskNode.order,containerTask.GetTask(((TaskNode)node.node).taskName));
+                        currNode = _parentNode.Attach(taskNode.order,containerTask.GetTask(taskNode.taskName));
                         break;
                 }
                 

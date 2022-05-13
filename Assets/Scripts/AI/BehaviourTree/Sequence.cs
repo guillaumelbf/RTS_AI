@@ -7,11 +7,21 @@ namespace BehaviourTree
 {
     public class Sequence : Node
     {
-        public Sequence() : base() {}
-        public Sequence(Node _node) : base(_node) {}
+        private Node decorator = null;
+
+        public Sequence(Node _decorator = null) : base()
+        {
+            decorator = _decorator;
+        }
 
         public override NodeState Evaluate()
         {
+            if (decorator != null)
+            {
+                if(decorator.Evaluate() == NodeState.FAILED)
+                    return NodeState.FAILED;
+            }
+            
             bool childIsRunning = false;
 
             foreach (var node in childNodes.Values)

@@ -13,7 +13,7 @@ public class MainAITree : BT.Tree
         
         containerTask.AddTask(new CreateUnitTask(GetComponent<AIController>()));
         containerTask.AddTask(new MoveUnitTask());
-        
+
         Generate(btGraph);
     }
 
