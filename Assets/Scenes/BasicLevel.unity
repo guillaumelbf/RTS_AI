@@ -1169,6 +1169,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114127896467981986, guid: dc4ee6691f59b07458286e0cfb38d82d,
         type: 3}
+      propertyPath: squadPrefab
+      value: 
+      objectReference: {fileID: 1399335311080336323, guid: 7b84df1a9858520419ecc639477ac266,
+        type: 3}
+    - target: {fileID: 114127896467981986, guid: dc4ee6691f59b07458286e0cfb38d82d,
+        type: 3}
       propertyPath: SceneEventSystem
       value: 
       objectReference: {fileID: 1531011709}

@@ -21,6 +21,7 @@ public class UnitDataScriptable : EntityDataScriptable
     public float AngularSpeed = 200f;
     public float Acceleration = 20f;
     public bool IsFlying = false;
+    public float Size = 1f;
 
     [Header("FX")]
     public GameObject BulletPrefab = null;

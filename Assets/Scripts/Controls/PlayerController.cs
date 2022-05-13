@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using UnityEngine.AI;
+using UnityEngine.SocialPlatforms.Impl;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -71,6 +73,10 @@ public sealed class PlayerController : UnitController
     Action OnCancelFactoryPositioning = null;
     Action OnSelectAllPressed = null;
     Action [] OnCategoryPressed = new Action[9];
+    Action OnKeyboardInput = null;
+    
+    
+    
 
     GameObject GetTargetCursor()
     {
@@ -126,6 +132,8 @@ public sealed class PlayerController : UnitController
         }
         // Set up the new Pointer Event
         MenuPointerEventData = new PointerEventData(SceneEventSystem);
+
+        
     }
 
     override protected void Start()
@@ -194,6 +202,9 @@ public sealed class PlayerController : UnitController
                 SelectAllUnitsByTypeId(typeId);
             };
         }
+
+
+        unitSquad = new UnitSquad();
     }
     override protected void Update()
     {
@@ -300,6 +311,14 @@ public sealed class PlayerController : UnitController
             OnCameraDragMoveStart?.Invoke();
         if (Input.GetMouseButtonUp(2))
             OnCameraDragMoveEnd?.Invoke();
+        
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            unitSquad.SwitchFormation(E_FORMATION_TYPE.Circle);
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            unitSquad.SwitchFormation(E_FORMATION_TYPE.Arrow);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            unitSquad.SwitchFormation(E_FORMATION_TYPE.Square);
+        
     }
     #endregion
 
@@ -583,27 +602,8 @@ public sealed class PlayerController : UnitController
             
             //TODO: Unit Formation
             Debug.Log(SelectedUnitList.Count);
-            //Formations
-            int unitPerLine = (SelectedUnitList.Count + SelectedUnitList.Count % 2) / 2;
-            float unitOffset = 5;
-            Vector3 currentPos = new Vector3(newPos.x - unitOffset * (unitPerLine / 2), newPos.y, newPos.z + (unitOffset/2));
-
-            int unitNum = 0;
-            // Direct call to moving task $$$ to be improved by AI behaviour
-            foreach (Unit unit in SelectedUnitList)
-            {
-                unit.SetTargetPos(currentPos);
-                
-                unitNum++;
-
-                if (unitNum % unitPerLine == 0)
-                {
-                    currentPos.x = newPos.x - unitOffset * (unitPerLine / 2);
-                    currentPos.z = newPos.z - (unitOffset/2);
-                }
-                else
-                    currentPos.x += unitOffset;
-            }
+            unitSquad.MoveSquad(newPos);
+            
         }
     }
     #endregion
