@@ -2,6 +2,9 @@
 using UnityEngine.AI;
 public class Unit : BaseEntity
 {
+    public bool isInSquad = false;
+    public bool isWorking = false;
+
     [SerializeField]
     UnitDataScriptable UnitData = null;
     
@@ -58,6 +61,12 @@ public class Unit : BaseEntity
             fx.transform.parent = null;
         }
 
+        DefenseTask.RemovePlayerUnitFromAllList(this);
+        Destroy(gameObject);
+    }
+
+    public void DestroyObject()
+    {
         Destroy(gameObject);
     }
     #region MonoBehaviour methods
@@ -133,6 +142,7 @@ public class Unit : BaseEntity
     // Targetting Task - attack
     public void SetAttackTarget(BaseEntity target)
     {
+
         if (CanAttack(target) == false)
             return;
 
@@ -140,7 +150,11 @@ public class Unit : BaseEntity
             StopCapture();
 
         if (target.GetTeam() != GetTeam())
+        {
+            isWorking = true;
             StartAttacking(target);
+        }
+
     }
 
     // Targetting Task - capture

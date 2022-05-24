@@ -16,7 +16,7 @@ public class ReinfoTask : BT.Node
     {
         ETeam playerTeam = aiController.GetTeam() == ETeam.Blue ? ETeam.Red : ETeam.Blue;
 
-        InfluenceMap.GetInfluenceMap();
+        //InfluenceMap.GetInfluenceMap();
 
         
         ManageCreationOfUnits();

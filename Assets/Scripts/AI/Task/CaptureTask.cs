@@ -16,7 +16,7 @@ public class CaptureTask : BT.Node
     {
         ETeam playerTeam = aiController.GetTeam() == ETeam.Blue ? ETeam.Red : ETeam.Blue;
 
-        InfluenceMap.GetInfluenceMap();
+        //InfluenceMap.GetInfluenceMap();
 
 
         return BT.NodeState.SUCCESS;

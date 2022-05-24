@@ -26,7 +26,7 @@ MonoBehaviour:
         node: {fileID: 6014492581161104420}
         reroutePoints: []
       _direction: 1
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   nextNode: {fileID: 0}
@@ -44,9 +44,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -952238762475381679}
-  - {fileID: 6034542946605839129}
-  - {fileID: 6221960024993139518}
   - {fileID: 6014492581161104420}
+  - {fileID: 7440540564435959600}
+  - {fileID: 1076218049368635930}
+--- !u!114 &1076218049368635930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab975228f9803f4ba8ab50e3ea58b1a, type: 3}
+  m_Name: Task
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 174, y: 129.5}
+  ports:
+    keys:
+    - prevNode
+    values:
+    - _fieldName: prevNode
+      _node: {fileID: 1076218049368635930}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: nextNode
+        node: {fileID: 6014492581161104420}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  prevNode: {fileID: 0}
+  order: 1
+  taskName: CreateUnitTask
 --- !u!114 &6014492581161104420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,6 +105,9 @@ MonoBehaviour:
       - fieldName: nextNode
         node: {fileID: -952238762475381679}
         reroutePoints: []
+      - fieldName: nextNode
+        node: {fileID: -952238762475381679}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -82,7 +117,10 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: prevNode
-        node: {fileID: 6034542946605839129}
+        node: {fileID: 7440540564435959600}
+        reroutePoints: []
+      - fieldName: prevNode
+        node: {fileID: 1076218049368635930}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -90,7 +128,10 @@ MonoBehaviour:
       _dynamic: 0
   prevNode: {fileID: 0}
   nextNode: {fileID: 0}
---- !u!114 &6034542946605839129
+  order: 0
+  useDecorator: 0
+  decoratorName: 
+--- !u!114 &7440540564435959600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,17 +141,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ab975228f9803f4ba8ab50e3ea58b1a, type: 3}
-  m_Name: CreateUnit
+  m_Name: Task
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 104, y: 72}
+  position: {x: 88, y: -72}
   ports:
     keys:
     - prevNode
-    - nextNode
     values:
     - _fieldName: prevNode
-      _node: {fileID: 6034542946605839129}
+      _node: {fileID: 7440540564435959600}
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: nextNode
@@ -120,52 +160,6 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: nextNode
-      _node: {fileID: 6034542946605839129}
-      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
   prevNode: {fileID: 0}
-  nextNode: {fileID: 0}
-  taskName: CreateUnitTask
---- !u!114 &6221960024993139518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ab975228f9803f4ba8ab50e3ea58b1a, type: 3}
-  m_Name: MoveUnit
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 104, y: -56}
-  ports:
-    keys:
-    - prevNode
-    - nextNode
-    values:
-    - _fieldName: prevNode
-      _node: {fileID: 6221960024993139518}
-      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: nextNode
-      _node: {fileID: 6221960024993139518}
-      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  prevNode: {fileID: 0}
-  nextNode: {fileID: 0}
+  order: 0
   taskName: DefenseTask
