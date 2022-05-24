@@ -33,35 +33,38 @@ public class DefenseTask : BT.Node
         scriptInfluenceMap = mapInflu;
         aiController = _aiController;
         listDefData = new List<DefenseData>();
+
+        playerTeam = aiController.GetTeam() == ETeam.Blue ? ETeam.Red : ETeam.Blue;
+        playerController = GameServices.GetControllerByTeam(playerTeam);
     }
 
     public override BT.NodeState Evaluate()
     {
-        playerTeam = aiController.GetTeam() == ETeam.Blue ? ETeam.Red : ETeam.Blue;
-        playerController = GameServices.GetControllerByTeam(playerTeam);
-        
-
         if (aiController.GetAllUnits().Count == 0)
             return BT.NodeState.SUCCESS;
 
-        if (isUnderAttack())
-        {
-            
-            ManageDefense();
+        foreach (Factory factory in aiController.GetAllFactorys())
+            foreach (Unit playerUnit in playerController.GetAllUnits())
+                if ((playerUnit.transform.position - factory.transform.position).magnitude < distanceAttack)
+                    CheckUnitAndCreateDef(playerUnit);
 
-            foreach (Unit aiUnit in aiController.GetAllUnits())
+        //Unit receiveUnitAttack = (Unit)GetData("playerUnit");
+
+        ManageDefense();
+
+        foreach (Unit aiUnit in aiController.GetAllUnits())
+        {
+            foreach (DefenseData enemyAttackData in listDefData)
             {
-                foreach (DefenseData enemyAttackData in listDefData)
+                foreach (Unit playerUnit in enemyAttackData.playerUnits)
                 {
-                    foreach (Unit playerUnit in enemyAttackData.playerUnits)
-                    {   
-                        if ((playerUnit.transform.position - aiUnit.transform.position).magnitude <= aiUnit.GetUnitData.AttackDistanceMax)
-                            aiUnit.SetAttackTarget(playerUnit);
-                    }
+                    if (playerUnit == null)
+                        continue;
+
+                    if ((playerUnit.transform.position - aiUnit.transform.position).magnitude <= aiUnit.GetUnitData.AttackDistanceMax)
+                        aiUnit.SetAttackTarget(playerUnit);
                 }
             }
-
-            return BT.NodeState.FAILED;
         }
 
         return BT.NodeState.SUCCESS;
@@ -100,7 +103,7 @@ public class DefenseTask : BT.Node
         {
             if (enemyAttackData.unitSquad.members.Count < enemyAttackData.randUnitSup)
             {
-                if (!unit.isInSquad && !unit.isWorking)
+                if (!unit.isInSquad)
                     enemyAttackData.unitSquad.AddUnit(unit);
             }
             else
@@ -108,44 +111,24 @@ public class DefenseTask : BT.Node
         }
     }
 
-
-
-    bool isUnderAttack()
+    void CheckUnitAndCreateDef(Unit playerUnit)
     {
-        foreach (Factory factory in aiController.GetAllFactorys())
-        {
-            foreach (Unit playerUnit in playerController.GetAllUnits())
-            {
+        if (CheckIfUnitIsInListDef(playerUnit))
+            return;
 
-                if ((playerUnit.transform.position - factory.transform.position).magnitude < distanceAttack)
-                {
-                    Debug.Log("on nous attaque chef");
+        DefenseData defPos = new DefenseData();
 
-                    if (CheckIfUnitIsInListDef(playerUnit))
-                        continue;
+        float rad = 15.0f;
+        defPos.leadPlayerUnit = playerUnit;
+        defPos.playerUnits = GetAllUnitArround(playerUnit, rad);
+        defPos.defPosition = playerUnit.transform.position;
 
-                    DefenseData defPos = new DefenseData();
+        //need score to send the same or more unit
+        defPos.score = scriptInfluenceMap.AmountScoreArroundPos(playerUnit.transform.position, rad, playerTeam);
+        defPos.randUnitSup = Random.Range(0, 2) + defPos.playerUnits.Count;
+        defPos.unitSquad = new UnitSquad();
 
-                    float rad = 15.0f;
-                    defPos.leadPlayerUnit = playerUnit;
-                    defPos.playerUnits = GetAllUnitArround(playerUnit, rad);
-                    // not sure of that, to find midlle of two point ...
-                    defPos.defPosition = playerUnit.transform.position;
-                    //need score to send the same or more unit
-                    defPos.score = scriptInfluenceMap.AmountScoreArroundPos(playerUnit.transform.position, rad, playerTeam);
-                    defPos.randUnitSup = Random.Range(0, 2) + defPos.playerUnits.Count;
-                    defPos.unitSquad = new UnitSquad();
-                    //Debug.Log(defPos.score + " unit detected : " + defPos.units.Count);
-
-                    listDefData.Add(defPos);
-                }
-            }
-        }
-
-        if (listDefData.Count != 0)
-            return true;
-        
-        return false;
+        listDefData.Add(defPos);
     }
 
     List<Unit> GetAllUnitArround(Unit currentUnit, float radius)
@@ -174,11 +157,15 @@ public class DefenseTask : BT.Node
         return false;
     }
 
+    // Call in unit dead event, work on it to optimize and find a good solution 
     public static void RemovePlayerUnitFromAllList(Unit unit)
     {
         for(int i = 0; i < listDefData.Count; i++)
         {
+            //if ia dead
+            listDefData[i].unitSquad.members.Remove(unit);
 
+            //if player dead
             listDefData[i].playerUnits.Remove(unit);
 
             DefenseData tmpData = listDefData[i];
