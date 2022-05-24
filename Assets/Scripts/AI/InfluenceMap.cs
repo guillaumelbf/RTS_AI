@@ -7,7 +7,7 @@ public class InfluenceMap : MonoBehaviour
 
     [Header("Final Texture")]
     [SerializeField]
-    static private Texture2D influenceTex;
+    private Texture2D influenceTex;
     [SerializeField]
     private int sizeFinalTex = 64;
 
@@ -31,7 +31,7 @@ public class InfluenceMap : MonoBehaviour
     private float timerUpdate = 1.0f;
     private float timerSave = 0.0f;
 
-    static public Texture2D GetInfluenceMap()
+    public Texture2D GetInfluenceMap()
     {
         return influenceTex;
     }

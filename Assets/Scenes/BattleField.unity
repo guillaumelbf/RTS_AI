@@ -626,6 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd8b19c31f7db64e9985ba620b4ff83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  influenceTex: {fileID: 0}
   sizeFinalTex: 32
   limitMap: {fileID: -5985772295880352104, guid: debf3d49bb2656746b4d7003d5f846c3,
     type: 2}
@@ -979,6 +980,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1835889142211122317, guid: fee74b0095774cf4f9701d9fab58813d,
+        type: 3}
+      propertyPath: influenceMap
+      value: 
+      objectReference: {fileID: 727041327}
     - target: {fileID: 6399179960504004712, guid: fee74b0095774cf4f9701d9fab58813d,
         type: 3}
       propertyPath: m_Name
