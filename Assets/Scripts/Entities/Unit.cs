@@ -127,7 +127,7 @@ public class Unit : BaseEntity
         if (EntityTarget != null)
             EntityTarget = null;
 
-        if (CaptureTarget != null)
+        if (targetBuildingToCapture != null)
             StopCapture();
 
         if (NavMeshAgent)
@@ -245,10 +245,10 @@ public class Unit : BaseEntity
     }
     public void StopCapture()
     {
-        if (CaptureTarget == null)
-            return;
+        
+        if (CaptureTarget != null)
+            CaptureTarget.StopCapture(this);
 
-        CaptureTarget.StopCapture(this);
         CaptureTarget = null;
         targetBuildingToCapture = null;
         isWorking = false;
@@ -263,7 +263,11 @@ public class Unit : BaseEntity
     {
         if (CanCapture(targetBuildingToCapture) == false)
         {
-            SetTargetPos(targetBuildingToCapture.transform.position);
+            if (NavMeshAgent)
+            {
+                NavMeshAgent.SetDestination(targetBuildingToCapture.transform.position);
+                NavMeshAgent.isStopped = false;
+            }
             return;
         }
 
