@@ -75,4 +75,9 @@ public class UnitSquad
     {
         SquadFormation.SetFormationType = newFormationType;
     }
+
+    public void SetCaptureTarget(TargetBuilding _targetBuilding)
+    {
+        //TODO
+    }
 }

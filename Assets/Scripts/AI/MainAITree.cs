@@ -19,6 +19,7 @@ public class MainAITree : BT.Tree
         
         containerTask.AddTask(new GotUnitDecorator(GetComponent<AIController>()));
         containerTask.AddTask(new NeedDefDecorator(GetComponent<AIController>()));
+        containerTask.AddTask(new HasPointToCaptureDecorator(GetComponent<AIController>()));
 
         Generate(btGraph);
     }

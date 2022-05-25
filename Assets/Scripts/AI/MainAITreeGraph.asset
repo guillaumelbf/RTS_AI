@@ -53,7 +53,10 @@ MonoBehaviour:
     - _fieldName: prevNode
       _node: {fileID: -1849956611860326277}
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: nextNode
+        node: {fileID: 2041929999940629476}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -159,8 +162,8 @@ MonoBehaviour:
   prevNode: {fileID: 0}
   nextNode: {fileID: 0}
   order: 1
-  useDecorator: 0
-  decoratorName: HasPointToCapture
+  useDecorator: 1
+  decoratorName: HasPointToCaptureDecorator
 --- !u!114 &1073751758814801198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +285,9 @@ MonoBehaviour:
       - fieldName: prevNode
         node: {fileID: 6014492581161104420}
         reroutePoints: []
+      - fieldName: prevNode
+        node: {fileID: -1849956611860326277}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -312,7 +318,10 @@ MonoBehaviour:
     - _fieldName: prevNode
       _node: {fileID: 4795830210737559442}
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: nextNode
+        node: {fileID: 5545590030061406432}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -350,7 +359,10 @@ MonoBehaviour:
     - _fieldName: nextNode
       _node: {fileID: 5545590030061406432}
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: prevNode
+        node: {fileID: 4795830210737559442}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0

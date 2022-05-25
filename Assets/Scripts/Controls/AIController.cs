@@ -28,5 +28,19 @@ public sealed class AIController : UnitController
         base.Update();
     }
 
+    public List<Unit> GetAllUnitsAvailable()
+    {
+        List<Unit> availableUnits = new List<Unit>();
+        foreach (var unit in GetAllUnits())
+        {
+            if (!unit.isWorking)
+            {
+                availableUnits.Add(unit);
+            }
+        }
+
+        return availableUnits;
+    }
+
     #endregion
 }
