@@ -601,8 +601,9 @@ public sealed class PlayerController : UnitController
             SetTargetCursorPosition(newPos);
             
             //TODO: Unit Formation
-            Debug.Log(SelectedUnitList.Count);
-            unitSquad.MoveSquad(newPos);
+            //Debug.Log(SelectedUnitList.Count);
+            if(unitSquad != null)
+                unitSquad.MoveSquad(newPos);
             
         }
     }

@@ -19,7 +19,7 @@ public class UnitController : MonoBehaviour
         get { return _TotalBuildPoints; }
         set
         {
-            Debug.Log("TotalBuildPoints updated");
+            //Debug.Log("TotalBuildPoints updated");
             _TotalBuildPoints = value;
             OnBuildPointsUpdated?.Invoke();
         }
@@ -229,7 +229,7 @@ public class UnitController : MonoBehaviour
             }
         }
 
-        Debug.Log("found " + FactoryList.Count + " factory for team " + GetTeam().ToString());
+        //Debug.Log("found " + FactoryList.Count + " factory for team " + GetTeam().ToString());
     }
     virtual protected void Update ()
     {

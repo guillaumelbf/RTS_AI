@@ -205,5 +205,26 @@ public class InfluenceMap : MonoBehaviour
 
         return finalScore;
     }
+
+    public float GetScoreArmy(ETeam teamColor)
+    {
+        float totalScore = 0.0f;
+
+        for (int i = 0; i < influenceTex.width; i++)
+            for (int j = 0; j < influenceTex.height; j++)
+            {
+                Color currentColorPixel = influenceTex.GetPixel(i, j);
+
+                if (currentColorPixel == Color.white)
+                    continue;
+
+                if (teamColor == ETeam.Red)
+                    totalScore += currentColorPixel.r;
+                if (teamColor == ETeam.Blue)
+                    totalScore += currentColorPixel.b;
+            }
+
+        return totalScore;
+    }
 }
 

@@ -15,7 +15,7 @@ public class GotUnitDecorator : BT.Node
 
     public override BT.NodeState Evaluate()
     {
-        if (aiController.GetAllUnits().Count > 0)
+        if (aiController.TotalBuildPoints <= 0)
             return BT.NodeState.SUCCESS;
 
         return BT.NodeState.FAILED;
