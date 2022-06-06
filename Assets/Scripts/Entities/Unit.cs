@@ -146,9 +146,7 @@ public class Unit : BaseEntity
     // Targetting Task - attack
     public void SetAttackTarget(BaseEntity target)
     {
-
-        if (CanAttack(target) == false)
-            return;
+        EntityTarget = target;
 
         if (CaptureTarget != null)
             StopCapture();
@@ -166,6 +164,8 @@ public class Unit : BaseEntity
     {
         if(target != targetBuildingToCapture)
             StopCapture();
+
+        EntityTarget = null;
         
         targetBuildingToCapture = target;
     }
@@ -202,7 +202,14 @@ public class Unit : BaseEntity
     public void ComputeAttack()
     {
         if (CanAttack(EntityTarget) == false)
+        {
+            if (NavMeshAgent)
+            {
+                NavMeshAgent.SetDestination(EntityTarget.transform.position);
+                NavMeshAgent.isStopped = false;
+            }
             return;
+        }
 
         if (NavMeshAgent)
             NavMeshAgent.isStopped = true;
@@ -227,6 +234,20 @@ public class Unit : BaseEntity
             // apply damages
             int damages = Mathf.FloorToInt(UnitData.DPS * UnitData.AttackFrequency);
             EntityTarget.AddDamage(damages);
+            
+            //Change unit atck
+            if (!EntityTarget.IsAlive)
+            {
+                var unitList = GameServices.GetControllerByTeam(GameServices.GetOpponent(Team)).GetAllUnits();
+                foreach (var unit in unitList)
+                {
+                    if (Vector3.Distance(transform.position, unit.transform.position) <= UnitData.AttackDistanceMax)
+                    {
+                        EntityTarget = unit;
+                        return;
+                    }
+                }
+            }
         }
     }
     public bool CanCapture(TargetBuilding target)

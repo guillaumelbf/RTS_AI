@@ -199,10 +199,10 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: prevNode
-        node: {fileID: 2041929999940629476}
+        node: {fileID: -4341902198082401538}
         reroutePoints: []
       - fieldName: prevNode
-        node: {fileID: -4341902198082401538}
+        node: {fileID: 2041929999940629476}
         reroutePoints: []
       _direction: 1
       _connectionType: 0

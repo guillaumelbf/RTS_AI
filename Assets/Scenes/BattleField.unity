@@ -999,7 +999,7 @@ PrefabInstance:
     - target: {fileID: 7859672622032877473, guid: fee74b0095774cf4f9701d9fab58813d,
         type: 3}
       propertyPath: maxCaptureDistance
-      value: 65
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7859672622032877473, guid: fee74b0095774cf4f9701d9fab58813d,
         type: 3}
