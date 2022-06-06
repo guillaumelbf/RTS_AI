@@ -16,10 +16,14 @@ public class MainAITree : BT.Tree
         containerTask.AddTask(new DefenseTask(GetComponent<AIController>(), influenceMap));
         containerTask.AddTask(new MoveUnitTask());
         containerTask.AddTask(new CaptureTask(GetComponent<AIController>()));
-        
+        containerTask.AddTask(new AttackTask(GetComponent<AIController>()));
+
+
         containerTask.AddTask(new GotUnitDecorator(GetComponent<AIController>()));
         containerTask.AddTask(new NeedDefDecorator(GetComponent<AIController>()));
         containerTask.AddTask(new HasPointToCaptureDecorator(GetComponent<AIController>()));
+        containerTask.AddTask(new CheckScoreArmy(GetComponent<AIController>(), influenceMap));
+
 
         Generate(btGraph);
     }

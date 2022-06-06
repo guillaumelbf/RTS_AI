@@ -288,6 +288,9 @@ MonoBehaviour:
       - fieldName: prevNode
         node: {fileID: -1849956611860326277}
         reroutePoints: []
+      - fieldName: prevNode
+        node: {fileID: 5545590030061406432}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -328,7 +331,7 @@ MonoBehaviour:
       _dynamic: 0
   prevNode: {fileID: 0}
   order: 0
-  taskName: 
+  taskName: AttackTask
 --- !u!114 &5545590030061406432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,7 +354,10 @@ MonoBehaviour:
     - _fieldName: prevNode
       _node: {fileID: 5545590030061406432}
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: nextNode
+        node: {fileID: 2041929999940629476}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -370,8 +376,8 @@ MonoBehaviour:
   prevNode: {fileID: 0}
   nextNode: {fileID: 0}
   order: 2
-  useDecorator: 0
-  decoratorName: IsPlayerArmyWeakest
+  useDecorator: 1
+  decoratorName: CheckScoreArmy
 --- !u!114 &6014492581161104420
 MonoBehaviour:
   m_ObjectHideFlags: 0
