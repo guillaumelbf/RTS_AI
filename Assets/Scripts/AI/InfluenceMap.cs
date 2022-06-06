@@ -145,8 +145,9 @@ public class InfluenceMap : MonoBehaviour
         {
             Vector2 flatPos = new Vector2(units[i].gameObject.transform.position.x * ratio, units[i].gameObject.transform.position.z * ratio);
             influenceTex.SetPixel((int)flatPos.x, (int)flatPos.y, color);
-
-            SetPixelAroundPositionTexture((int)flatPos.x, (int)flatPos.y, radiusInfluence, color);
+     
+            // set with attack distance Max 
+            SetPixelAroundPositionTexture((int)flatPos.x, (int)flatPos.y, units[i].GetUnitData.AttackDistanceMax, color);
         }
     }
 

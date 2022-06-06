@@ -1064,6 +1064,102 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1082414426}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1084567436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1084567440}
+  - component: {fileID: 1084567439}
+  - component: {fileID: 1084567438}
+  - component: {fileID: 1084567437}
+  m_Layer: 0
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!64 &1084567437
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084567436}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1084567438
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084567436}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e9927f5f9a81d034283b6f37a2133011, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1084567439
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084567436}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1084567440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084567436}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 250, y: 0.01, z: 250}
+  m_LocalScale: {x: 50, y: 1, z: 50}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &1101620785 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4514436329004458, guid: dc4ee6691f59b07458286e0cfb38d82d,
@@ -1600,6 +1696,7 @@ GameObject:
   - component: {fileID: 1776657142}
   - component: {fileID: 1776657146}
   - component: {fileID: 1776657145}
+  - component: {fileID: 1776657147}
   m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
@@ -1723,6 +1820,26 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: b626c90acb9353d4ab5167f0e5855cda, type: 2}
+--- !u!114 &1776657147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776657141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd8b19c31f7db64e9985ba620b4ff83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  influenceTex: {fileID: 0}
+  sizeFinalTex: 256
+  limitMap: {fileID: -6047601954507217364, guid: c34f6488215af13419a2b3bfbfa29489,
+    type: 2}
+  mat: {fileID: 2100000, guid: e9927f5f9a81d034283b6f37a2133011, type: 2}
+  powerInfluence: 0.7
+  radiusInfluence: 5
+  timerUpdate: 1
 --- !u!224 &1857385670 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3297987965787243821, guid: 6274f44d969a12f4f9c683eb6eef2d05,
@@ -2383,10 +2500,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1835889142211122317, guid: fee74b0095774cf4f9701d9fab58813d,
+        type: 3}
+      propertyPath: influenceMap
+      value: 
+      objectReference: {fileID: 1776657147}
     - target: {fileID: 6399179960504004712, guid: fee74b0095774cf4f9701d9fab58813d,
         type: 3}
       propertyPath: m_Name
       value: AIController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7859672622032877473, guid: fee74b0095774cf4f9701d9fab58813d,
+        type: 3}
+      propertyPath: maxCaptureDistance
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fee74b0095774cf4f9701d9fab58813d, type: 3}
