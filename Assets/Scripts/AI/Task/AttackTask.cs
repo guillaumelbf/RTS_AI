@@ -27,7 +27,7 @@ public class AttackTask : BT.Node
 
         List<Factory> factorysPLayer = playerController.GetAllFactorys();
 
-        if (aiController.CapturedTargets < 1 && aiController.GetAllUnits().Count < 3 || factorysPLayer.Count <= 0)
+        if (aiController.CapturedTargets < 1 && aiController.GetAllUnitsAvailable().Count < 5)
             return BT.NodeState.FAILED;
 
         if (attackSquad.members.Count >= 0)

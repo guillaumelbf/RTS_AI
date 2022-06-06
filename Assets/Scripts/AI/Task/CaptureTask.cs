@@ -10,13 +10,11 @@ public class CaptureTask : BT.Node
     private AIController aiController;
     private ETeam playerTeam;
 
-    private List<UnitSquad> captureSquadList = new List<UnitSquad>();
+    private UnitSquad captureSquad = new UnitSquad();
     public CaptureTask(AIController _aiController)
     {
         aiController = _aiController;
         playerTeam = aiController.GetTeam() == ETeam.Blue ? ETeam.Red : ETeam.Blue;
-        captureSquadList.Add(new UnitSquad());
-        captureSquadList.Add(new UnitSquad());
     }
 
     public override BT.NodeState Evaluate()
@@ -26,26 +24,20 @@ public class CaptureTask : BT.Node
         if (nearestBuilding != null)
         {
             //Create Squad for capture
-            foreach (var captureSquad in captureSquadList)
+            if (captureSquad.members.Count < 5)
             {
-                if (captureSquad.members.Count < 5)
+                foreach (var unit in aiController.GetAllUnitsAvailable())
                 {
-                    foreach (var unit in aiController.GetAllUnitsAvailable())
-                    {
-                        captureSquad.members.Add(unit);
-                        if(captureSquad.members.Count == 5)
-                            break;
-                    }
+                    captureSquad.members.Add(unit);
+                    if(captureSquad.members.Count == 5)
+                        break;
                 }
             }
-            
+
             //Set squad to capture point
-            foreach (var captureSquad in captureSquadList)
+            foreach (var unit in captureSquad.members)
             {
-                foreach (var unit in captureSquad.members)
-                {
-                    unit.SetCaptureTarget(nearestBuilding);
-                }
+                unit.SetCaptureTarget(nearestBuilding);
             }
         }
         
