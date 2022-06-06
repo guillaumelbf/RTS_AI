@@ -6,7 +6,7 @@ using BT = BehaviourTree;
 
 public class AttackTask : BT.Node
 {
-    private UnitSquad attackSquad;
+    static private UnitSquad attackSquad;
     private AIController aiController;
     private UnitController playerController;
 
@@ -27,12 +27,15 @@ public class AttackTask : BT.Node
 
         List<Factory> factorysPLayer = playerController.GetAllFactorys();
 
-        if (aiController.CapturedTargets < 1 && aiController.GetAllUnitsAvailable().Count < 5)
+        if (aiController.CapturedTargets < 1 && aiController.GetAllUnitsAvailable().Count < 5 || factorysPLayer.Count <= 0) 
             return BT.NodeState.FAILED;
 
-        if (attackSquad.members.Count >= 0)
+        if (attackSquad.members.Count < 5 && aiController.CountUnitInWorkMode() <= aiController.GetAllUnits().Count / 2.0f)
+        {
             addUnitInSquadIfPossible();
-
+            return BT.NodeState.RUNNING;
+        }
+        
         // attack enemy in road 
         AttackEnemyArround();
 
@@ -51,7 +54,7 @@ public class AttackTask : BT.Node
         }
 
         // Check members squad, isAllDead ?
-        return BT.NodeState.SUCCESS;
+        return BT.NodeState.SUCCESS; 
     }
 
     void AttackEnemyArround()
@@ -75,9 +78,18 @@ public class AttackTask : BT.Node
         {
             if (attackSquad.members.Count < halfUnitAI + Random.Range(0,halfUnitAI))
             {
-                if (!unit.isInSquad)
+                if (!unit.isInSquad && !unit.isWorking)
+                {
+                    unit.isWorking = true;
                     attackSquad.AddUnit(unit);
+                }
             }
         }
+    }
+
+    public static void RemovePlayerUnitFromAllList(Unit unit)
+    {
+        //if ia dead
+        attackSquad.members.Remove(unit);
     }
 }

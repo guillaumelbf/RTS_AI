@@ -64,6 +64,7 @@ public class Unit : BaseEntity
         }
 
         DefenseTask.RemovePlayerUnitFromAllList(this);
+        AttackTask.RemovePlayerUnitFromAllList(this);
         Destroy(gameObject);
     }
 
