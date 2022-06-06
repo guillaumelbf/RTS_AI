@@ -42,5 +42,16 @@ public sealed class AIController : UnitController
         return availableUnits;
     }
 
+    public int CountUnitInWorkMode()
+    {
+        int result = 0;
+
+        foreach (Unit unit in GetAllUnits())
+            if (unit.isWorking)
+                result++;
+
+        return result;
+    }
+
     #endregion
 }
