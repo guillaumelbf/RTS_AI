@@ -24,7 +24,7 @@ public class HasPointToCaptureDecorator : BT.Node
 
     private bool IsBuildingAvailable()
     {
-        if (GameServices.GetTargetBuildings().Length <= 0)
+        if (aiController.GetAllFactorys().Count <= 0)
             return false;
 
         foreach (var targetBuilding in GameServices.GetTargetBuildings())
