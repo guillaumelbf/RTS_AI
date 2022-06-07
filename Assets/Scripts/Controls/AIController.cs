@@ -5,7 +5,7 @@ using BehaviourTree;
 using UnityEditor;
 using UnityEngine;
 
-// $$$ TO DO :)
+// $$$ TO DO :) Yes, it's a great to do 
 
 public sealed class AIController : UnitController
 {
