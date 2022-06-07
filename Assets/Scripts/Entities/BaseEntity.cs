@@ -49,28 +49,39 @@ public abstract class BaseEntity : MonoBehaviour, ISelectable, IDamageable, IRep
 
     void ShowUI()
     {
+        
         if(HPText != null)
             if (IsSelected)
             {
-                HPText.gameObject.SetActive(true);
-                CaptionText.gameObject.SetActive(true);
-                if (unit)
+                if (!GameServices.UiStatus)
                 {
-                    SpeedText.gameObject.SetActive(true);
-                    DpsText.gameObject.SetActive(true);
+                    GameServices.UiStatus = true;
+                    HPText.gameObject.SetActive(true);
+                    CaptionText.gameObject.SetActive(true);
+                    if (unit)
+                    {
+                        SpeedText.gameObject.SetActive(true);
+                        DpsText.gameObject.SetActive(true);
+                    }
+                    Debug.Log("affichage UI");
                 }
-                Debug.Log("affichage UI");
+                
             }
             else
             {
-                CaptionText.gameObject.SetActive(false);
-                if (unit)
+                if (GameServices.UiStatus)
                 {
-                    SpeedText.gameObject.SetActive(false);
-                    DpsText.gameObject.SetActive(false);
+                    GameServices.UiStatus = false;
+                    CaptionText.gameObject.SetActive(false);
+                    if (unit)
+                    {
+                        SpeedText.gameObject.SetActive(false);
+                        DpsText.gameObject.SetActive(false);
+                    }
+                    HPText.gameObject.SetActive(false);
+                    Debug.Log("hidden UI");
                 }
-                HPText.gameObject.SetActive(false);
-                Debug.Log("hidden UI");
+                
             }
             
     }

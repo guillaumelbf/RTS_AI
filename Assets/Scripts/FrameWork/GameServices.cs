@@ -29,6 +29,9 @@ public class GameServices : MonoBehaviour
 
     Terrain CurrentTerrain = null;
     Bounds PlayableBounds;
+    public bool uiStatus = false;
+
+    
 
     #region Static methods
     public static GameServices GetGameServices()
@@ -95,6 +98,12 @@ public class GameServices : MonoBehaviour
                 return CurrentTerrain.terrainData.bounds.size;
             return new Vector3(DefaultPlayableBoundsSize, 10.0f, DefaultPlayableBoundsSize);
         }
+    }
+    
+    public static bool UiStatus
+    {
+        get { return Instance.uiStatus; }
+        set { Instance.uiStatus = value; }
     }
 
     #endregion
