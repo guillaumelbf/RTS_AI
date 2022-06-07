@@ -10,6 +10,8 @@ using UnityEngine;
 public sealed class AIController : UnitController
 {
     public float maxCaptureDistance = 0;
+
+    private static ETeam aiControllerTeam;
     
     #region MonoBehaviour methods
 
@@ -21,6 +23,8 @@ public sealed class AIController : UnitController
     protected override void Start()
     {
         base.Start();
+
+        aiControllerTeam = Team;
     }
 
     protected override void Update()
@@ -51,6 +55,11 @@ public sealed class AIController : UnitController
                 result++;
 
         return result;
+    }
+
+    public static ETeam GetAiControllerTeam()
+    {
+        return aiControllerTeam;
     }
 
     #endregion

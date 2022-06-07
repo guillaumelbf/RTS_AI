@@ -17,7 +17,7 @@ public class CreateUnitTask : BT.Node
 
         List<Factory> factorys =  aiController.GetAllFactorys();
 
-        factorys[0].RequestUnitBuild(0);
+        factorys[0].RequestUnitBuild(Random.Range(0,3));
 
         return BT.NodeState.SUCCESS;
     }

@@ -17,6 +17,7 @@ public class MainAITree : BT.Tree
         containerTask.AddTask(new MoveUnitTask());
         containerTask.AddTask(new CaptureTask(GetComponent<AIController>()));
         containerTask.AddTask(new AttackTask(GetComponent<AIController>()));
+        containerTask.AddTask(new PatrolTask(GetComponent<AIController>()));
 
 
         containerTask.AddTask(new GotUnitDecorator(GetComponent<AIController>()));

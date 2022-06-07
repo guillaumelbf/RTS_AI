@@ -51,6 +51,9 @@ public class Unit : BaseEntity
         HP = UnitData.MaxHP;
         OnDeadEvent += Unit_OnDead;
         unitSize = UnitData.Size;
+
+        if (NavMeshAgent)
+            NavMeshAgent.isStopped = true;
     }
     void Unit_OnDead()
     {
@@ -105,6 +108,9 @@ public class Unit : BaseEntity
             else
                 ComputeRepairing();
         }
+        
+        if(AIController.GetAiControllerTeam() == Team && !NavMeshAgent.isStopped)
+            NavMeshAgent.isStopped = !NavMeshAgent.hasPath;
     }
     #endregion
 
@@ -147,15 +153,14 @@ public class Unit : BaseEntity
     // Targetting Task - attack
     public void SetAttackTarget(BaseEntity target)
     {
-        EntityTarget = target;
-
-        if (CaptureTarget != null)
-            StopCapture();
-
         if (target.GetTeam() != GetTeam())
         {
             isWorking = true;
-            StartAttacking(target);
+            
+            EntityTarget = target;
+
+            if (CaptureTarget != null)
+                StopCapture();
         }
 
     }
@@ -169,6 +174,8 @@ public class Unit : BaseEntity
         EntityTarget = null;
         
         targetBuildingToCapture = target;
+        
+        isWorking = true;
     }
 
     // Targetting Task - repairing
@@ -294,6 +301,12 @@ public class Unit : BaseEntity
 
     private void ComputeCapture()
     {
+        if (Team == targetBuildingToCapture.GetTeam())
+        {
+            StopCapture();
+            return;
+        }
+        
         if (CanCapture(targetBuildingToCapture) == false)
         {
             if (NavMeshAgent)
@@ -355,6 +368,11 @@ public class Unit : BaseEntity
             int amount = Mathf.FloorToInt(UnitData.RPS * UnitData.RepairFrequency);
             EntityTarget.Repair(amount);
         }
+    }
+
+    public bool IsStopped()
+    {
+        return NavMeshAgent.isStopped;
     }
     #endregion
 }
