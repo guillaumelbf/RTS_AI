@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.AssetImporters;
-using UnityEngine;
 
+using System.Collections.Generic;
 namespace BehaviourTree
 {
     public enum NodeState
