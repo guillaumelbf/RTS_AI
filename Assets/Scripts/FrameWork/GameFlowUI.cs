@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameFlowUI : MonoBehaviour
@@ -14,6 +16,9 @@ public class GameFlowUI : MonoBehaviour
         WinnerText.gameObject.SetActive(false);
 
         GameServices.GetGameState().OnGameOver += ShowGameResults;
+
+
+
     }
     void ShowGameResults(ETeam winner)
     {
@@ -22,5 +27,15 @@ public class GameFlowUI : MonoBehaviour
 
         GameOverText.gameObject.SetActive(true);
         WinnerText.gameObject.SetActive(true);
+
+        StartCoroutine(waiter());
+    }
+
+    IEnumerator waiter()
+    {
+        yield return new WaitForSeconds(4);
+
+        SceneManager.LoadScene("MainMenu");
+
     }
 }
