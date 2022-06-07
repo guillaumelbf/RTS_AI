@@ -12,6 +12,7 @@ public class CheckScoreArmy : BT.Node
     private ETeam playerTeam;
 
     private float valuePrctAdd = 30.0f;
+    private float timer = 0.3f;
 
     public CheckScoreArmy(AIController _aiController, InfluenceMap mapInflu)
     {
@@ -24,14 +25,21 @@ public class CheckScoreArmy : BT.Node
 
     public override BT.NodeState Evaluate()
     {
-        float scorePlayerArmy = influenceMap.GetScoreArmy(playerTeam);
-        float scoreIAArmy = influenceMap.GetScoreArmy(aiController.GetTeam());
+        timer -= Time.deltaTime;
 
-        float bonus = scoreIAArmy / valuePrctAdd;
-
-        if (scoreIAArmy > scorePlayerArmy + bonus)
+        if (timer < 0) ;
         {
-            return BT.NodeState.SUCCESS;
+            float scorePlayerArmy = influenceMap.GetScoreArmy(playerTeam);
+            float scoreIAArmy = influenceMap.GetScoreArmy(aiController.GetTeam());
+
+            float bonus = scoreIAArmy / valuePrctAdd;
+
+            if (scoreIAArmy > scorePlayerArmy + bonus)
+            {
+                return BT.NodeState.SUCCESS;
+            }
+
+            timer = 0.3f;
         }
 
         return BT.NodeState.FAILED;
