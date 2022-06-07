@@ -1,13 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using BehaviourTree;
+using UnityEditor;
 using UnityEngine;
 
 // $$$ TO DO :)
 
 public sealed class AIController : UnitController
 {
-
+    public float maxCaptureDistance = 0;
+    
     #region MonoBehaviour methods
 
     protected override void Awake()
@@ -23,6 +26,31 @@ public sealed class AIController : UnitController
     protected override void Update()
     {
         base.Update();
+    }
+
+    public List<Unit> GetAllUnitsAvailable()
+    {
+        List<Unit> availableUnits = new List<Unit>();
+        foreach (var unit in GetAllUnits())
+        {
+            if (!unit.isWorking)
+            {
+                availableUnits.Add(unit);
+            }
+        }
+
+        return availableUnits;
+    }
+
+    public int CountUnitInWorkMode()
+    {
+        int result = 0;
+
+        foreach (Unit unit in GetAllUnits())
+            if (unit.isWorking)
+                result++;
+
+        return result;
     }
 
     #endregion

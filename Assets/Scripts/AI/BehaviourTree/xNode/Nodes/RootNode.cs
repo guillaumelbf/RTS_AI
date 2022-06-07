@@ -6,7 +6,7 @@ using XNode;
 public class RootNode : Node
 {
 
-	[Output] public Node nextNode;
+	[Output(connectionType = ConnectionType.Override)] public Node nextNode;
 	
 	// Use this for initialization
 	protected override void Init() {

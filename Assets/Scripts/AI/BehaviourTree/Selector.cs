@@ -6,13 +6,22 @@ namespace BehaviourTree
 {
     public class Selector : Node
     {
-        public Selector() : base() {}
-        public Selector(Node _node) : base(_node) {}
+        private Node decorator = null;
+
+        public Selector(Node _decorator = null) : base()
+        {
+            decorator = _decorator;
+        }
 
         public override NodeState Evaluate()
         {
-
-            foreach (var node in childNodes)
+            if (decorator != null)
+            {
+                if(decorator.Evaluate() == NodeState.FAILED)
+                    return NodeState.FAILED;
+            }
+            
+            foreach (var node in childNodes.Values)
             {
                 switch (node.Evaluate())
                 {

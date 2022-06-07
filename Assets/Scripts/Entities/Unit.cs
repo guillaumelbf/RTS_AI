@@ -2,6 +2,11 @@
 using UnityEngine.AI;
 public class Unit : BaseEntity
 {
+    public bool isInSquad = false;
+    public bool isWorking = false;
+
+    private TargetBuilding targetBuildingToCapture = null;
+
     [SerializeField]
     UnitDataScriptable UnitData = null;
     
@@ -33,7 +38,7 @@ public class Unit : BaseEntity
     Transform BulletSlot;
     float LastActionDate = 0f;
     BaseEntity EntityTarget = null;
-    TargetBuilding CaptureTarget = null;
+    TargetBuilding CaptureTarget;
     NavMeshAgent NavMeshAgent;
     public UnitDataScriptable GetUnitData { get { return UnitData; } }
     public int Cost { get { return UnitData.Cost; } }
@@ -70,6 +75,13 @@ public class Unit : BaseEntity
             fx.transform.parent = null;
         }
 
+        DefenseTask.RemovePlayerUnitFromAllList(this);
+        AttackTask.RemovePlayerUnitFromAllList(this);
+        Destroy(gameObject);
+    }
+
+    public void DestroyObject()
+    {
         Destroy(gameObject);
     }
     #region MonoBehaviour methods
@@ -95,6 +107,8 @@ public class Unit : BaseEntity
     }
     override protected void Update()
     {
+        if (targetBuildingToCapture != null)
+            ComputeCapture();
         // Attack / repair task debug test $$$ to be removed for AI implementation
         if (EntityTarget != null)
         {
@@ -103,7 +117,7 @@ public class Unit : BaseEntity
             else
                 ComputeRepairing();
         }
-	}
+    }
     #endregion
 
     #region IRepairable
@@ -132,7 +146,7 @@ public class Unit : BaseEntity
         if (EntityTarget != null)
             EntityTarget = null;
 
-        if (CaptureTarget != null)
+        if (targetBuildingToCapture != null)
             StopCapture();
 
         if (NavMeshAgent)
@@ -145,30 +159,28 @@ public class Unit : BaseEntity
     // Targetting Task - attack
     public void SetAttackTarget(BaseEntity target)
     {
-        if (CanAttack(target) == false)
-            return;
+        EntityTarget = target;
 
         if (CaptureTarget != null)
             StopCapture();
 
         if (target.GetTeam() != GetTeam())
+        {
+            isWorking = true;
             StartAttacking(target);
+        }
+
     }
 
     // Targetting Task - capture
     public void SetCaptureTarget(TargetBuilding target)
     {
-        if (CanCapture(target) == false)
-            return;
-
-        if (EntityTarget != null)
-            EntityTarget = null;
-
-        if (IsCapturing())
+        if(target != targetBuildingToCapture)
             StopCapture();
 
-        if (target.GetTeam() != GetTeam())
-            StartCapture(target);
+        EntityTarget = null;
+        
+        targetBuildingToCapture = target;
     }
 
     // Targetting Task - repairing
@@ -203,7 +215,14 @@ public class Unit : BaseEntity
     public void ComputeAttack()
     {
         if (CanAttack(EntityTarget) == false)
+        {
+            if (NavMeshAgent)
+            {
+                NavMeshAgent.SetDestination(EntityTarget.transform.position);
+                NavMeshAgent.isStopped = false;
+            }
             return;
+        }
 
         if (NavMeshAgent)
             NavMeshAgent.isStopped = true;
@@ -228,6 +247,20 @@ public class Unit : BaseEntity
             // apply damages
             int damages = Mathf.FloorToInt(UnitData.DPS * UnitData.AttackFrequency);
             EntityTarget.AddDamage(damages);
+            
+            //Change unit atck
+            if (!EntityTarget.IsAlive)
+            {
+                var unitList = GameServices.GetControllerByTeam(GameServices.GetOpponent(Team)).GetAllUnits();
+                foreach (var unit in unitList)
+                {
+                    if (Vector3.Distance(transform.position, unit.transform.position) <= UnitData.AttackDistanceMax)
+                    {
+                        EntityTarget = unit;
+                        return;
+                    }
+                }
+            }
         }
     }
     public bool CanCapture(TargetBuilding target)
@@ -253,19 +286,41 @@ public class Unit : BaseEntity
 
         CaptureTarget = target;
         CaptureTarget.StartCapture(this);
+        isWorking = true;
     }
     public void StopCapture()
     {
-        if (CaptureTarget == null)
-            return;
+        
+        if (CaptureTarget != null)
+            CaptureTarget.StopCapture(this);
 
-        CaptureTarget.StopCapture(this);
         CaptureTarget = null;
+        targetBuildingToCapture = null;
+        isWorking = false;
     }
 
     public bool IsCapturing()
     {
         return CaptureTarget != null;
+    }
+
+    private void ComputeCapture()
+    {
+        if (CanCapture(targetBuildingToCapture) == false)
+        {
+            if (NavMeshAgent)
+            {
+                NavMeshAgent.SetDestination(targetBuildingToCapture.transform.position);
+                NavMeshAgent.isStopped = false;
+            }
+            return;
+        }
+
+        if (IsCapturing())
+            return;
+
+        if (targetBuildingToCapture.GetTeam() != GetTeam())
+            StartCapture(targetBuildingToCapture);
     }
 
     // Repairing Task

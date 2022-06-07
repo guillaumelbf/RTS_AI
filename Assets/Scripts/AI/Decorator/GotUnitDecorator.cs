@@ -4,21 +4,20 @@ using UnityEngine;
 
 using BT = BehaviourTree;
 
-public class CreateUnitTask : BT.Node
+public class GotUnitDecorator : BT.Node
 {
     private AIController aiController;
-    public CreateUnitTask(AIController _aiController)
+    
+    public GotUnitDecorator(AIController _aiController)
     {
         aiController = _aiController;
     }
-    
+
     public override BT.NodeState Evaluate()
     {
+        if (aiController.GetAllUnits().Count > 0)
+            return BT.NodeState.SUCCESS;
 
-        List<Factory> factorys =  aiController.GetAllFactorys();
-
-        factorys[0].RequestUnitBuild(0);
-
-        return BT.NodeState.SUCCESS;
+        return BT.NodeState.FAILED;
     }
 }

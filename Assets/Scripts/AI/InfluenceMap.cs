@@ -145,8 +145,9 @@ public class InfluenceMap : MonoBehaviour
         {
             Vector2 flatPos = new Vector2(units[i].gameObject.transform.position.x * ratio, units[i].gameObject.transform.position.z * ratio);
             influenceTex.SetPixel((int)flatPos.x, (int)flatPos.y, color);
-
-            SetPixelAroundPositionTexture((int)flatPos.x, (int)flatPos.y, radiusInfluence, color);
+     
+            // set with attack distance Max 
+            SetPixelAroundPositionTexture((int)flatPos.x, (int)flatPos.y, units[i].GetUnitData.AttackDistanceMax, color);
         }
     }
 
@@ -178,6 +179,53 @@ public class InfluenceMap : MonoBehaviour
                 }
             }
         }
+    }
+
+    public float AmountScoreArroundPos(Vector3 pos, float radius, ETeam enemyTeam)
+    {
+        float ratio = influenceTex.width / sizeField.x;
+        float finalScore = 0;
+
+        Vector2 center = new Vector2(pos.x * ratio, pos.z * ratio);
+
+        for (int i = (int)center.x - (int)radius; i < center.x + (int)radius; i++)
+        {
+            for (int j = (int)center.y - (int)radius; j < center.y + (int)radius; j++)
+            {
+                Color currentColorPixel = influenceTex.GetPixel(i, j);
+
+                if (currentColorPixel == Color.white)
+                    continue;
+
+                if (enemyTeam == ETeam.Red)
+                    finalScore += currentColorPixel.r;
+                if (enemyTeam == ETeam.Blue)
+                    finalScore += currentColorPixel.b;
+            }
+        }
+
+        return finalScore;
+    }
+
+    public float GetScoreArmy(ETeam teamColor)
+    {
+        float totalScore = 0.0f;
+
+        for (int i = 0; i < influenceTex.width; i++)
+            for (int j = 0; j < influenceTex.height; j++)
+            {
+                Color currentColorPixel = influenceTex.GetPixel(i, j);
+
+                if (currentColorPixel == Color.white)
+                    continue;
+
+                if (teamColor == ETeam.Red)
+                    totalScore += currentColorPixel.r;
+                if (teamColor == ETeam.Blue)
+                    totalScore += currentColorPixel.b;
+            }
+
+        return totalScore;
     }
 }
 

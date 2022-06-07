@@ -7,8 +7,11 @@ namespace BehaviourTree
 {
     public class Tree : MonoBehaviour
     {
-        public Node root = null;
+        private Node root = null;
         protected ContainerTask containerTask;
+
+        public float updateFrequency;
+        private float currentTime = 0;
         
         // Start is called before the first frame update
         public virtual void Start()
@@ -20,6 +23,11 @@ namespace BehaviourTree
         // Update is called once per frame
         public virtual void Update()
         {
+            currentTime += Time.deltaTime;
+            if (currentTime <= updateFrequency)
+                return;
+            currentTime = 0;
+
             if (root != null)
                 root.Evaluate();
         }
@@ -34,22 +42,31 @@ namespace BehaviourTree
         //Recursively attach each node together 
         private void GenerateChild(XNode.Node _parentXNode, Node _parentNode)
         {
-            if(_parentXNode == null || _parentNode == null)
+            if(_parentXNode == null || _parentNode == null || !_parentXNode.Outputs.Any())
                 return;
-            
+
             foreach (var node in _parentXNode.Outputs.First().GetConnections())
             {
                 Node currNode = null;
                 switch (node.node.GetType().Name)
                 {
                     case nameof(SelectorNode):
-                        currNode = _parentNode.Attach(new Selector());
+                        SelectorNode selectorNode = (SelectorNode)node.node;
+                        Selector selector = new Selector(selectorNode.useDecorator
+                            ? containerTask.GetTask(selectorNode.decoratorName)
+                            : null);
+                        currNode = _parentNode.Attach(selectorNode.order,selector);
                         break;
                     case nameof(SequenceNode):
-                        currNode = _parentNode.Attach(new Sequence());
+                        SequenceNode sequenceNode = (SequenceNode)node.node;
+                        Sequence sequence = new Sequence(sequenceNode.useDecorator
+                            ? containerTask.GetTask(sequenceNode.decoratorName)
+                            : null);
+                        currNode = _parentNode.Attach(sequenceNode.order,sequence);
                         break;
                     case nameof(TaskNode):
-                        currNode = _parentNode.Attach(containerTask.GetTask(((TaskNode)node.node).taskName));
+                        TaskNode taskNode = (TaskNode)node.node;
+                        currNode = _parentNode.Attach(taskNode.order,containerTask.GetTask(taskNode.taskName));
                         break;
                 }
                 
