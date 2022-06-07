@@ -32,6 +32,7 @@ public class MainAITree : BT.Tree
     // Update is called once per frame
     public override void Update()
     {
-        base.Update();
+        if(!GameServices.GetGameState().IsGameOver)
+            base.Update();
     }
 }

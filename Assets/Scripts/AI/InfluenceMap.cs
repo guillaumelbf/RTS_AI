@@ -214,8 +214,9 @@ public class InfluenceMap : MonoBehaviour
     {
         float totalScore = 0.0f;
 
-        for (int i = 0; i < influenceTex.width; i++)
-            for (int j = 0; j < influenceTex.height; j++)
+        for (int i = 0; i < influenceTex.width; i+=2)
+        {
+            for (int j = 0; j < influenceTex.height; j+=2)  
             {
                 Color currentColorPixel = influenceTex.GetPixel(i, j);
 
@@ -227,6 +228,7 @@ public class InfluenceMap : MonoBehaviour
                 if (teamColor == ETeam.Blue)
                     totalScore += currentColorPixel.b;
             }
+        }
 
         return totalScore;
     }
