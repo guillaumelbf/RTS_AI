@@ -15,8 +15,6 @@ public class PatrolTask : BT.Node
 
     public override BT.NodeState Evaluate()
     {
-        Debug.Log("Unit free : "+ aiController.GetAllUnitsAvailable().Count);
-
         foreach (var unit in aiController.GetAllUnitsAvailable())
         {
             if(!unit.IsStopped())
