@@ -57,6 +57,8 @@ public sealed class Factory : BaseEntity
             Debug.LogWarning("Missing FactoryData in " + gameObject.name);
         }
         HP = FactoryData.MaxHP;
+        maxHp = HP;
+        caption = FactoryData.Caption;
         OnDeadEvent += Factory_OnDead;
 
         UnitPrefabs = new GameObject[FactoryData.AvailableUnits.Length];

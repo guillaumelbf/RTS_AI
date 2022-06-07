@@ -6,11 +6,13 @@ public class UnitSquad
 {
     [HideInInspector] public List<Unit> members = new List<Unit>();
     private Formation SquadFormation;
+    public Unit leader = null;
     private float MoveSpeed = 100.0f;
 
     public UnitSquad()
     {
         SquadFormation = new Formation(this);
+        leader = SquadFormation.FormationLeader;
     }
 
     private void Awake()

@@ -8,9 +8,21 @@ public abstract class BaseEntity : MonoBehaviour, ISelectable, IDamageable, IRep
     protected ETeam Team;
 
     protected int HP = 0;
+    
+    protected int maxHp = 0;
+    protected string caption = "";
+    protected float speed = 0;
+    protected float dps = 0;
+
     protected Action OnHpUpdated;
     protected GameObject SelectedSprite = null;
     protected Text HPText = null;
+    protected Text SpeedText = null;
+    protected Text CaptionText = null;
+    protected Text DpsText = null;
+    protected bool unit = false;
+    
+    
     protected bool IsInitialized = false;
 
     public Action OnDeadEvent;
@@ -32,7 +44,48 @@ public abstract class BaseEntity : MonoBehaviour, ISelectable, IDamageable, IRep
     void UpdateHpUI()
     {
         if (HPText != null)
-            HPText.text = "HP : " + HP.ToString();
+            HPText.text = "HP : " + HP.ToString() + "/" + maxHp.ToString();
+    }
+
+    void ShowUI()
+    {
+        if(HPText != null)
+            if (IsSelected)
+            {
+                HPText.gameObject.SetActive(true);
+                CaptionText.gameObject.SetActive(true);
+                if (unit)
+                {
+                    SpeedText.gameObject.SetActive(true);
+                    DpsText.gameObject.SetActive(true);
+                }
+                Debug.Log("affichage UI");
+            }
+            else
+            {
+                CaptionText.gameObject.SetActive(false);
+                if (unit)
+                {
+                    SpeedText.gameObject.SetActive(false);
+                    DpsText.gameObject.SetActive(false);
+                }
+                HPText.gameObject.SetActive(false);
+                Debug.Log("hidden UI");
+            }
+            
+    }
+
+    void SetUI()
+    {
+        if (CaptionText != null)
+            CaptionText.text = caption;
+
+        if (SpeedText != null)
+            SpeedText.text = "Speed : " + speed.ToString();
+
+        if (DpsText != null)
+            DpsText.text = "Dps : " + dps.ToString();
+
     }
 
     #region ISelectable
@@ -40,6 +93,8 @@ public abstract class BaseEntity : MonoBehaviour, ISelectable, IDamageable, IRep
     {
         IsSelected = selected;
         SelectedSprite?.SetActive(IsSelected);
+        
+        ShowUI();
     }
     public ETeam GetTeam()
     {
@@ -91,16 +146,35 @@ public abstract class BaseEntity : MonoBehaviour, ISelectable, IDamageable, IRep
 
         SelectedSprite = transform.Find("SelectedSprite")?.gameObject;
         SelectedSprite?.SetActive(false);
-
+/*
         Transform hpTransform = transform.Find("Canvas/HPText");
         if (hpTransform)
             HPText = hpTransform.GetComponent<Text>();
+*/
+        Transform hpTransform = transform.Find("UnitCanvas/box/UnitHp");
+        if (hpTransform)
+            HPText = hpTransform.GetComponent<Text>();
+
+        Transform speedTransform = transform.Find("UnitCanvas/box/UnitSpeed");
+        if (speedTransform)
+            SpeedText = speedTransform.GetComponent<Text>();
+
+        Transform dpsTransform = transform.Find("UnitCanvas/box/UnitDps");
+        if (dpsTransform)
+            DpsText = dpsTransform.GetComponent<Text>();
+
+        Transform captionTransform = transform.Find("UnitCanvas/box/UnitCaption");
+        if (captionTransform)
+            CaptionText = captionTransform.GetComponent<Text>();
+
+        
 
         OnHpUpdated += UpdateHpUI;
     }
     virtual protected void Start()
     {
         UpdateHpUI();
+        SetUI();
     }
     virtual protected void Update()
     {

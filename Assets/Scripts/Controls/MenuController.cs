@@ -19,7 +19,6 @@ public class MenuController : MonoBehaviour
     Button[] BuildFactoryButtons = null;
     Button CancelBuildButton = null;
     Text[] BuildQueueTexts = null;
-
     public void HideFactoryMenu()
     {
         if (FactoryMenuPanel)

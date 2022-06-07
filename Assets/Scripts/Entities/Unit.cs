@@ -6,6 +6,8 @@ public class Unit : BaseEntity
     UnitDataScriptable UnitData = null;
     
     Vector3 gridPosition = Vector3.zero;
+
+    private bool leader = true;
     public Vector3 GridPosition
     {
         get { return gridPosition; }
@@ -44,8 +46,18 @@ public class Unit : BaseEntity
         base.Init(_team);
 
         HP = UnitData.MaxHP;
+        maxHp = HP;
+        speed = UnitData.Speed;
+        dps = UnitData.DPS;
+        caption = UnitData.Caption;
+        unit = true;
+        
         OnDeadEvent += Unit_OnDead;
         unitSize = UnitData.Size;
+        
+        
+        
+        
     }
     void Unit_OnDead()
     {
