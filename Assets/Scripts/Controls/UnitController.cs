@@ -73,6 +73,7 @@ public class UnitController : MonoBehaviour
     }
     protected void SelectAllUnits()
     {
+        
         foreach (Unit unit in UnitList)
             unit.SetSelected(true);
 
@@ -95,12 +96,14 @@ public class UnitController : MonoBehaviour
     }
     protected void SelectUnitList(List<Unit> units)
     {
+        
         foreach (Unit unit in units)
             unit.SetSelected(true);
         SelectedUnitList.AddRange(units);
     }
     protected void SelectUnitList(Unit [] units)
     {
+        
         foreach (Unit unit in units)
             unit.SetSelected(true);
         SelectedUnitList.AddRange(units);

@@ -25,13 +25,9 @@ public class Formation
     private float GridDistance = 5.0f;
     private Vector3 OldLeaderPos;
 
-    private Unit formationLeader;
+    private Unit FormationLeader;
 
-    public Unit FormationLeader
-    {
-        get{ return FormationLeader; }
-        set{formationLeader = value; }
-    }
+    
 
     // Square rules
     private int UnitsPerLine = 4;
@@ -58,7 +54,7 @@ public class Formation
     public void UpdateFormationLeader()
     {
         if (Squad.members.Count != 0)
-            formationLeader = Squad.members[0];
+            FormationLeader = Squad.members[0];
     }
 
     public void CreateFormation(Vector3 targetPos)
@@ -66,7 +62,7 @@ public class Formation
         if (Squad.members.Count == 0)
             return;
 
-        formationLeader = Squad.members[0];
+        FormationLeader = Squad.members[0];
 
         switch (FormationType)
         {
@@ -89,8 +85,8 @@ public class Formation
         int numberOfSectors = Squad.members.Count;
         float radius = numberOfSectors * GridDistance / Mathf.PI;
 
-        formationLeader.GridPosition = targetPos;
-        float rotY = formationLeader.transform.eulerAngles.y;
+        FormationLeader.GridPosition = targetPos;
+        float rotY = FormationLeader.transform.eulerAngles.y;
 
         for (int i = 1; i < Squad.members.Count; i++)
         {
@@ -100,7 +96,7 @@ public class Formation
             Vector3 positionOffset = new Vector3(radius * Mathf.Sin(angle), 0, -radius + radius * Mathf.Cos(angle));
             Vector3 rotationOffset = Quaternion.Euler(0, rotY, 0) * positionOffset;
 
-            currentMember.GridPosition = formationLeader.GridPosition + sizeOffset + rotationOffset;
+            currentMember.GridPosition = FormationLeader.GridPosition + sizeOffset + rotationOffset;
         }
 
         Squad.MoveUnitToPosition();
@@ -110,8 +106,8 @@ public class Formation
     {
         
         
-        formationLeader.GridPosition = targetPos;
-        Transform refTransform = formationLeader.transform;
+        FormationLeader.GridPosition = targetPos;
+        Transform refTransform = FormationLeader.transform;
 
         for (int i = 1; i < Squad.members.Count; i++)
         {
@@ -120,7 +116,7 @@ public class Formation
             Vector3 offset = -refTransform.forward;
             offset += (i % 2 == 0) ? refTransform.right : -refTransform.right;
             
-            Squad.members[i].GridPosition = sizeOffset + formationLeader.GridPosition + (offset * (GridDistance * Mathf.FloorToInt((i + 1) / 2)));
+            Squad.members[i].GridPosition = sizeOffset + FormationLeader.GridPosition + (offset * (GridDistance * Mathf.FloorToInt((i + 1) / 2)));
 
             //Vector3 squadPos = refTransform.position + (offset * (GridDistance * Mathf.FloorToInt((i + 1) / 2)));
 
@@ -132,8 +128,8 @@ public class Formation
     void CreateSquareFormation(Vector3 targetPos)
     {
         
-        formationLeader.GridPosition = targetPos;
-        Transform refTransform = formationLeader.transform;
+        FormationLeader.GridPosition = targetPos;
+        Transform refTransform = FormationLeader.transform;
         
         // set position in line
         for (int i = 1; i < Squad.members.Count; i++)
@@ -151,7 +147,7 @@ public class Formation
             if (lineIndex > 0)
                 offset -= refTransform.forward * lineIndex * GridDistance ;
             
-            Squad.members[i].GridPosition = formationLeader.GridPosition + offset + sizeOffset;
+            Squad.members[i].GridPosition = FormationLeader.GridPosition + offset + sizeOffset;
         }
         
         Squad.MoveUnitToPosition();
@@ -168,11 +164,11 @@ public class Formation
      */
     void ChooseLeader(Vector3 pos)
     {
-        float distance = Vector3.Distance(formationLeader.transform.position, pos);
+        float distance = Vector3.Distance(FormationLeader.transform.position, pos);
         foreach (Unit unit in Squad.members)
         {
             if (Vector3.Distance(unit.transform.position, pos) < distance)
-                formationLeader = unit;
+                FormationLeader = unit;
         }
     }
 }
