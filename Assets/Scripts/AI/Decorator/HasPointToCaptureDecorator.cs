@@ -24,6 +24,9 @@ public class HasPointToCaptureDecorator : BT.Node
 
     private bool IsBuildingAvailable()
     {
+        if (GameServices.GetTargetBuildings().Length <= 0)
+            return false;
+
         foreach (var targetBuilding in GameServices.GetTargetBuildings())
         {
             if ((targetBuilding.GetTeam() == ETeam.Neutral || targetBuilding.GetTeam() == playerTeam) &&

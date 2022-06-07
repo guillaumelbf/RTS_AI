@@ -24,7 +24,7 @@ public class InfluenceMap : MonoBehaviour
     [SerializeField]
     private float powerInfluence = 1.0f;
     [SerializeField]
-    private float radiusInfluence = 5.0f;
+    private float radiusInfluence = 2.0f;
 
     [Space]
     [SerializeField]
@@ -147,7 +147,7 @@ public class InfluenceMap : MonoBehaviour
             influenceTex.SetPixel((int)flatPos.x, (int)flatPos.y, color);
      
             // set with attack distance Max 
-            SetPixelAroundPositionTexture((int)flatPos.x, (int)flatPos.y, units[i].GetUnitData.AttackDistanceMax, color);
+            SetPixelAroundPositionTexture((int)flatPos.x, (int)flatPos.y, units[i].GetUnitData.AttackDistanceMax / radiusInfluence, color);
         }
     }
 
@@ -159,6 +159,9 @@ public class InfluenceMap : MonoBehaviour
         {
             for (int j = posY - (int)radius; j < posY + (int)radius; j++)
             {
+                if (i < 0 || j < 0 || i > sizeFinalTex || j > sizeFinalTex)
+                    continue;
+
                 Color currentColorPixel = influenceTex.GetPixel(i, j);
 
                 if (currentColorPixel == Color.white)

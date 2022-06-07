@@ -16,7 +16,7 @@ MonoBehaviour:
   Caption: Light Factory
   Cost: 10
   BuildDuration: 20
-  MaxHP: 5000
+  MaxHP: 3000
   NbSpawnSlots: 10
   SpawnRadius: 12
   RadiusOffset: 4

@@ -273,6 +273,9 @@ public sealed class Factory : BaseEntity
 
         SpawnCount++;
 
+        if (SpawnCount > 25)
+            SpawnCount = 0;
+
         // disable build cancelling callback
         OnBuildCanceled = null;
 

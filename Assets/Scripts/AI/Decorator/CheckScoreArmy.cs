@@ -11,7 +11,7 @@ public class CheckScoreArmy : BT.Node
 
     private ETeam playerTeam;
 
-    private float valuePrctAdd = 10.0f;
+    private float valuePrctAdd = 30.0f;
 
     public CheckScoreArmy(AIController _aiController, InfluenceMap mapInflu)
     {

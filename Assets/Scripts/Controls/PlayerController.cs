@@ -74,9 +74,10 @@ public sealed class PlayerController : UnitController
     Action OnSelectAllPressed = null;
     Action [] OnCategoryPressed = new Action[9];
     Action OnKeyboardInput = null;
-    
-    
-    
+
+    private ETeam aiTeam;
+    private UnitController aiController;
+
 
     GameObject GetTargetCursor()
     {
@@ -138,6 +139,10 @@ public sealed class PlayerController : UnitController
 
     override protected void Start()
     {
+
+        aiTeam = GetTeam() == ETeam.Blue ? ETeam.Red : ETeam.Blue;
+        aiController = GameServices.GetControllerByTeam(aiTeam);
+
         base.Start();
 
         PreviewShader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
@@ -217,6 +222,15 @@ public sealed class PlayerController : UnitController
                 UpdateSelectionInput();
                 UpdateActionInput();
                 break;
+        }
+
+        foreach (Unit unit in GetAllUnits())
+        {
+            foreach (Unit aiUnit in aiController.GetAllUnits())
+            {
+                if ((aiUnit.transform.position - unit.transform.position).magnitude <= unit.GetUnitData.AttackDistanceMax)
+                    unit.SetAttackTarget(aiUnit);
+            }
         }
 
         UpdateCameraInput();

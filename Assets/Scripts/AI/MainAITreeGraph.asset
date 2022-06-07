@@ -32,6 +32,55 @@ MonoBehaviour:
   prevNode: {fileID: 0}
   order: 1
   taskName: CreateUnitTask
+--- !u!114 &-2394122193595077047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c728e5311f5f744885f73c2e2c7bed, type: 3}
+  m_Name: Sequence
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -472, y: -136}
+  ports:
+    keys:
+    - prevNode
+    - nextNode
+    values:
+    - _fieldName: prevNode
+      _node: {fileID: -2394122193595077047}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: nextNode
+        node: {fileID: -952238762475381679}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: nextNode
+      _node: {fileID: -2394122193595077047}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: prevNode
+        node: {fileID: 1073751758814801198}
+        reroutePoints: []
+      - fieldName: prevNode
+        node: {fileID: 3071829170550350378}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  prevNode: {fileID: 0}
+  nextNode: {fileID: 0}
+  order: 0
+  useDecorator: 0
+  decoratorName: 
 --- !u!114 &-1849956611860326277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,7 +126,7 @@ MonoBehaviour:
   m_Name: Root
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -472, y: -24}
+  position: {x: -712, y: -120}
   ports:
     keys:
     - nextNode
@@ -87,7 +136,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: prevNode
-        node: {fileID: 1073751758814801198}
+        node: {fileID: -2394122193595077047}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -118,6 +167,8 @@ MonoBehaviour:
   - {fileID: 5545590030061406432}
   - {fileID: 4795830210737559442}
   - {fileID: -1849956611860326277}
+  - {fileID: -2394122193595077047}
+  - {fileID: 3071829170550350378}
 --- !u!114 &599997437297110627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,7 +239,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: nextNode
-        node: {fileID: -952238762475381679}
+        node: {fileID: -2394122193595077047}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -210,7 +261,7 @@ MonoBehaviour:
       _dynamic: 0
   prevNode: {fileID: 0}
   nextNode: {fileID: 0}
-  order: 0
+  order: 1
   useDecorator: 0
   decoratorName: 
 --- !u!114 &1687533283758305051
@@ -300,6 +351,38 @@ MonoBehaviour:
   order: 0
   useDecorator: 1
   decoratorName: GotUnitDecorator
+--- !u!114 &3071829170550350378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab975228f9803f4ba8ab50e3ea58b1a, type: 3}
+  m_Name: Task
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -216, y: -184}
+  ports:
+    keys:
+    - prevNode
+    values:
+    - _fieldName: prevNode
+      _node: {fileID: 3071829170550350378}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: nextNode
+        node: {fileID: -2394122193595077047}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  prevNode: {fileID: 0}
+  order: 0
+  taskName: PatrolTask
 --- !u!114 &4795830210737559442
 MonoBehaviour:
   m_ObjectHideFlags: 0
