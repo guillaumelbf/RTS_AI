@@ -17,6 +17,7 @@ public abstract class BaseEntity : MonoBehaviour, ISelectable, IDamageable, IRep
     protected Action OnHpUpdated;
     protected GameObject SelectedSprite = null;
     protected Text HPText = null;
+    protected Text MaxHPText = null;
     protected Text SpeedText = null;
     protected Text CaptionText = null;
     protected Text DpsText = null;
@@ -44,19 +45,19 @@ public abstract class BaseEntity : MonoBehaviour, ISelectable, IDamageable, IRep
     void UpdateHpUI()
     {
         if (HPText != null)
-            HPText.text = "HP : " + HP.ToString() + "/" + maxHp.ToString();
+            HPText.text = "HP : " + HP.ToString();
     }
 
     void ShowUI()
     {
         
-        if(HPText != null)
+        if(MaxHPText != null)
             if (IsSelected)
             {
                 if (!GameServices.UiStatus)
                 {
                     GameServices.UiStatus = true;
-                    HPText.gameObject.SetActive(true);
+                    MaxHPText.gameObject.SetActive(true);
                     CaptionText.gameObject.SetActive(true);
                     if (unit)
                     {
@@ -78,7 +79,7 @@ public abstract class BaseEntity : MonoBehaviour, ISelectable, IDamageable, IRep
                         SpeedText.gameObject.SetActive(false);
                         DpsText.gameObject.SetActive(false);
                     }
-                    HPText.gameObject.SetActive(false);
+                    MaxHPText.gameObject.SetActive(false);
                     Debug.Log("hidden UI");
                 }
                 
@@ -96,6 +97,9 @@ public abstract class BaseEntity : MonoBehaviour, ISelectable, IDamageable, IRep
 
         if (DpsText != null)
             DpsText.text = "Dps : " + dps.ToString();
+        
+        if (MaxHPText != null)
+            MaxHPText. text = "HP : " + HP.ToString() + "/" + maxHp.ToString();
 
     }
 
@@ -157,14 +161,14 @@ public abstract class BaseEntity : MonoBehaviour, ISelectable, IDamageable, IRep
 
         SelectedSprite = transform.Find("SelectedSprite")?.gameObject;
         SelectedSprite?.SetActive(false);
-/*
+
         Transform hpTransform = transform.Find("Canvas/HPText");
         if (hpTransform)
             HPText = hpTransform.GetComponent<Text>();
-*/
-        Transform hpTransform = transform.Find("UnitCanvas/box/UnitHp");
-        if (hpTransform)
-            HPText = hpTransform.GetComponent<Text>();
+
+        Transform MaxhpTransform = transform.Find("UnitCanvas/box/UnitHp");
+        if (MaxhpTransform)
+            MaxHPText = MaxhpTransform.GetComponent<Text>();
 
         Transform speedTransform = transform.Find("UnitCanvas/box/UnitSpeed");
         if (speedTransform)
